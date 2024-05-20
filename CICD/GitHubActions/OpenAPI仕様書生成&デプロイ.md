@@ -9,7 +9,7 @@
 
 前提として、gh-pagesブランチへのコミット&プッシュされることでGitHubPagesにデプロイされる設定をしている
 
-TODO: キャプチャ
+![スクリーンショット 2024-05-20 12 11 10](https://github.com/nyuusen/TIL/assets/56878203/766a5143-e72f-43fb-82c6-313b1255d19d)
 
 ## 実装したコード
 
@@ -73,7 +73,7 @@ git config user.name "github-actions[bot]"
 git config user.email "github-actions[bot]@users.noreply.github.com"
 ```
 
-TODO: キャプチャ
+![スクリーンショット 2024-05-20 11 29 12](https://github.com/nyuusen/TIL/assets/56878203/d187f210-1d40-4fe1-a325-6edc1769b1c0)
 
 ### git push時に403エラーが発生する
 
