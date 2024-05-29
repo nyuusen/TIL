@@ -24,10 +24,6 @@ Node.jsでサーバーサイドの開発って結局微妙なのでは？複雑�
 - OSによるディスクへの書き込みや通信などの処理に関するイベントを監視し、そのステータスをNode.jsに通知する機能を持つ
  - イベント監視はOSによって仕様や実現方法が異なるが、この辺りを抽象化し、OSを気にすることなく使えるようにしているのがLibuvである
 
-[I/Oのイベント管理がキモ | 日経クロステック（xTECH）](https://xtech.nikkei.com/it/article/COLUMN/20120725/411442/)
-→分かりやすい図あり<br>
-[Node.jsを理解する (libuv)](https://zenn.dev/mmomm/articles/ff83eb49a7b642)
-
 ## Node.jsの特徴
 
 ### 非同期I/O
@@ -67,11 +63,14 @@ Node.jsでサーバーサイドの開発って結局微妙なのでは？複雑�
 - Node.jsは非同期I/Oとイベント駆動モデルを採用しているため、ロングポーリングのような多くのオープンな接続を効率的に処理するのに適している
   - 非同期I/O: リクエストを非ブロッキングで処理するため、I/O操作の完了を待たずに次の操作を開始できるため、リソースの効率的な使用が可能である
   - イベント駆動モデル: リクエストが来るたびにNode.jsはイベントキューに追加し、非同期に処理できるため、同時に多数のリクエストを効率的に処理できる
- 
-## その他
 
-冒頭で書いた「複雑性増すよね？」という意見が指すのは恐らくモジュール解決についてのことがほとんどだと思う。
+## 参考
 
-モジュールについては[Node.js + TypeScriptのモジュールを整理してみる](https://blog.koh.dev/2024-04-23-nodejs-typescript-module/)がとてもわかりやすかった。
+[Node.jsの設計をつらつらと概観する #JavaScript - Qiita](https://qiita.com/Shiruba/items/709044782cffbd2aaeda)
 
+[I/Oのイベント管理がキモ | 日経クロステック（xTECH）](https://xtech.nikkei.com/it/article/COLUMN/20120725/411442/)
+→分かりやすい図あり
 
+[Node.jsを理解する (libuv)](https://zenn.dev/mmomm/articles/ff83eb49a7b642)
+
+[Node.js + TypeScriptのモジュールを整理してみる](https://blog.koh.dev/2024-04-23-nodejs-typescript-module/)
