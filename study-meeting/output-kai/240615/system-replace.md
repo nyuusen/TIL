@@ -42,3 +42,7 @@
     - キャッシュのInvalidateを行わないと、普通のページにアクセスできてしまう恐れがある
 - (新環境リリース後)現環境メンテナンスモード内に配置するリンク等は新環境のものにしておく
     - オートリダイレクトにするのもあり
+      - HTMLならmeta refreshでできる
+        - `<meta http-equiv="refresh" content="リダイレクトするまでの秒数; URL=新URL">`
+      - APIなら、HeaderのLocationフィールドに新URLをセットして30x系のリダイレクトのHTTPステータスコードを返す
+      - JavaScriptを使用するのも可能だが、SEO的に微妙らしい
