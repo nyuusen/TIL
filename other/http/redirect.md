@@ -13,7 +13,7 @@
 - SEO的には最も優れている？
 - 参考: [301 Moved Permanently - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Status/301)
 
-## 302　Found
+## 302 Found
 
 - リクエストされたリソースが**一時的**にHTTPヘッダーのLocationで示されたURLに移動したことを示す
 - ブラウザはこのURLにリダイレクトするが、検索エンジンはリソースへのリンクを更新**しない**

@@ -21,6 +21,11 @@
 
 ## Tips
 
+### Standard Module Structure
+
+- 公式による基本構成に関する説明
+  - https://developer.hashicorp.com/terraform/language/modules/develop/structure
+
 ### 変数定義
 
 - Terraformでは`variables.tf`を用いて変数を定義し、その変数を`var.`の形で参照することができる

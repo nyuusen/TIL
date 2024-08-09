@@ -9,7 +9,7 @@
 ## 使い方
 
 - GitHubリポジトリの設定から有効化できる
-  -　Security > Code security and analysis
+  - Security > Code security and analysis
 - .github/dependabot.ymlにチェック頻度や対象範囲を定義できる
 - [Dependabot を使う - GitHub Docs](https://docs.github.com/ja/code-security/dependabot/working-with-dependabot)
 
