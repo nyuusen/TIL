@@ -3,8 +3,14 @@
 ## Makefileの基本
 
 - 全てはここに載っている：[GNU make](https://www.gnu.org/software/make/manual/make.html)
+- GNUというは「グヌー」というらしく、フリーソフトウェア（特に、オープンソースソフトウェア）のみでUNIX風のOSと関連するソフトウェア群を開発・公開するプロジェクト
+- 簡単に内容把握する:[Makefileの基本](https://zenn.dev/keitean/articles/aaef913b433677)
 
 ## 細かなTips
+
+### nオプション
+
+- `make -n xxx`で実行されるコマンドを表示する（dry-run）
 
 ### .PHONY
 
@@ -12,6 +18,10 @@
 - .PHONYにターゲットを書くことで、ファイルの存在有無関係なく、コマンドを実行してくれる
 - もし仮に同名のファイルが作成されてしまったためにmakeコマンドが実行されなくなってしまう等の問題を避けることを目的としている
 - 全てのターゲットは.PHONYに指定するで良さそう
+
+### shell関数
+
+- $(shell echo hoge)とかでシェルを実行する
 
 ### 変数展開
 
