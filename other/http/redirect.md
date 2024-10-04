@@ -31,7 +31,7 @@
 
 - リクエストされたリソースが**一時的**にHTTPヘッダーのLocationで示されたURLに移動したことを示す
 - リクエストメソッドと本文が変更されないことが保証される
-  -　使用されるメソッドをGETに変更したい場合は303を使用する
+  - 使用されるメソッドをGETに変更したい場合は303を使用する
 - 参考: [307 Temporary Redirect - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Status/307)
 
 ## 308 Permanent Redirect
@@ -81,7 +81,7 @@
   - `<meta http-equiv="refresh" content="秒数;URL=URL">`というような書き方で実現可能
   - よく「10秒後に移動します」みたいなサイトがあると思うが、多分この方法でリダイレクトさせているのではと思う
 - JavaScriptで実装する(window.location.hrefなど)
-  -　ただしこれだとSEO観点で検索エンジンがURL変更を認識できず宜しくないらしい
+  - ただしこれだとSEO観点で検索エンジンがURL変更を認識できず宜しくないらしい
     - canonicalタグで代替可能か？(`<meta><link ref="canonical" href="new_url" />...</meta>`)
  
 ## 所感
