@@ -21,3 +21,14 @@
     - 取得した結果をPRにコメントとしてぶら下げるみたいなこともできそう
 - ただし、プルリクエストは人間の目で見て、マージすることが推奨されている(そりゃそう)
 - [GitHub ActionsでのDependabotの自動化 - GitHub Docs](https://docs.github.com/ja/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions) 
+
+## 注意点
+
+### Docker
+
+DependabotにはDockerfileのベースイメージ(FROMフィールド)に記述されたバージョンアップの対象とすることができるが、  
+DockerComposeファイル(compose.yaml)に記述されたイメージ指定(imageフィールド)を対象とすることは現状できない。  
+
+対策としては、DockerComposeにイメージをベタ書きせずにDockerfileに切り出すとかRenovateにするかとか...
+
+参考：[Docker Compose files対応が待ち望まれているIssue](https://github.com/dependabot/dependabot-core/issues/390)
