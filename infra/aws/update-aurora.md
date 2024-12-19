@@ -47,3 +47,6 @@
 
 - [Amazon Aurora の更新 - Amazon Aurora](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.Updates.html)
 - [Amazon Aurora MySQL 5.6を頑張らずに8.0へメジャーアップグレードしてみた | DevelopersIO](https://dev.classmethod.jp/articles/upgrade-aurora-mysql-5-6-to-8-0-simple-stupid/)
+- https://tech.uzabase.com/entry/2024/12/15/090000
+  - 大規模サービスでのアップデート事例
+  - レプリケーションとか勉強になる
