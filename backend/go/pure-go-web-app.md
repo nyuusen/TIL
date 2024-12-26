@@ -86,3 +86,34 @@ func main() {
   - POSIXやOS固有の低レベルAPI（例: syscall）との相性が良い
     - osパッケージなどでは、この辺りを直接利用して処理を行うことが多い
   - ビット演算はC言語やUNIX系のシステムプログラミングで長く使用されてきた標準的な手法であるから
+
+## そもそもHTTPとは
+
+- TCPが「漏れなく順序よく」送るためのルール
+- その上で何をどうやって送るかのルールを定義するのがHTTPやSFTPになる
+- ここまで実装を進めたことで、以下の章が理解度が素晴らしい..
+  - [HTTPとは？｜伸び悩んでいる3年目Webエンジニアのための、Python Webアプリケーション自作入門](https://zenn.dev/bigen1925/books/introduction-to-web-application-with-python/viewer/what-is-http)
+
+## レスポンスパーサの自作
+
+- HTTPリクエストはリクエストライン,ヘッダー,ボディという構成になっている
+- この構成のスペースの数や改行文字(CRLF)がきちんと定義されていることで安心してパースする
+- この辺の処理を自作することで、HTTP含めプロトコルが定義されている理由やありがたみがわかるのがとても良い
+
+## POST通信のフォーマットについて
+
+- formタグのenctype属性で指定することが可能
+- `application/x-www-form-urlencoded` 
+  - デフォルト値
+  - URLに使用可能な文字のみ使用する
+  - 別名URLエンコーディング
+- `multipart/form-data`
+  - ファイルを送信するとき使用する
+- `application/json`
+  - 素のHTMLとブラウザの組み合わせでは使用できない
+  - JavaScriptのAjaxやAPI同士の通信でよく使用される(と思う)
+  - 利点としては、各言語にエンコード/デコード機能が豊富にあること・配列を持てること・数値と文字列の区別ができることが挙げられる
+  - ただし、JSONはただのテキストデータなので、バイナリデータを送信することはできない
+- これをサーバー側とクライアント側で同じフォーマットルールを共有することで、互いに解釈することができる
+  - フォーマットルールの共有にHTTPヘッダーのContent-Typeを利用しているというわけ
+- [POSTパラメータを扱えるようにする｜伸び悩んでいる3年目Webエンジニアのための、Python Webアプリケーション自作入門](https://zenn.dev/bigen1925/books/introduction-to-web-application-with-python/viewer/post-parameters)

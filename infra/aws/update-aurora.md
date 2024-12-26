@@ -27,6 +27,12 @@
     - [より安全、簡単、迅速な更新のための Amazon RDS ブルー/グリーンデプロイを発表](https://aws.amazon.com/jp/about-aws/whats-new/2022/11/amazon-rds-blue-green-deployments-safer-simpler-faster-updates/)
     - [【衝撃】AWSのRDSがデータを失わないBlue/Greenデプロイに対応しました #reinvent | DevelopersIO](https://dev.classmethod.jp/articles/rds-bg-deploy/)
 
+### 4.ブルー/グリーンデプロイ機能
+
+- エンドポイント変わらない
+- グリーンへの切り替え後に、ブルーへの逆方向レプリケーションが可能
+  - 切り戻しが必要な時に迅速に対応が可能
+
 #### 補足: binlogとは
 
 - バイナリログのこと
@@ -47,3 +53,16 @@
 
 - [Amazon Aurora の更新 - Amazon Aurora](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.Updates.html)
 - [Amazon Aurora MySQL 5.6を頑張らずに8.0へメジャーアップグレードしてみた | DevelopersIO](https://dev.classmethod.jp/articles/upgrade-aurora-mysql-5-6-to-8-0-simple-stupid/)
+
+## 他社事例
+
+### ユーザベース様
+
+記事: [Aurora MySQL 2から3へのアップグレード - 安全性とコストを考慮した移行プロセス - Uzabase for Engineers](https://tech.uzabase.com/entry/2024/12/15/090000)
+
+- 影響調査として、更新系クエリの動作確認はバイナリログレプリケーションを利用した
+  - Auroraのブルーグリーンデプロイメントは、ブルー環境のブルー環境のクラスタに存在するDBインスタンスと同台数作成されてしまうのでコストが高いため
+- アップグレード自体は、ブルー/グリーンデプロイ機能を利用した
+  - 逆方向レプリケーションで切り戻しがしやすいため
+- レプリケーションの方法が気になったので調べた
+  - [Aurora MySQL のバイナリログレプリケーションの設定 - Amazon Aurora](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Replication.MySQL.SettingUp.html#AuroraMySQL.Replication.MySQL.RetainBinlogs)
