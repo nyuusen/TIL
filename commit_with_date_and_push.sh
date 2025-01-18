@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git pull
+
 # 現在の日付を取得して、yyyyMMdd形式にフォーマット
 current_date=$(date +%Y%m%d)
 
@@ -15,3 +17,5 @@ if [ $? -eq 0 ]; then
 else
     echo "Failed to commit. Please check for errors."
 fi
+
+git push origin main
