@@ -1,4 +1,9 @@
-# 現代のWebアプリケーションにおける認証認可の技術まとめ
+# 現代のWebアプリケーション(HTTP)における認証認可の技術まとめ
+
+## はじめに
+
+MDNに良い感じにまとめてあった。
+[HTTP 認証 - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Authentication)
 
 ## 認証認可を実現する技術(その仕様)
 
@@ -8,6 +13,26 @@
 - OpenID Connect
 - JWT
 - MFA
+
+### Basic認証
+
+- IDとパスワードをBASE64エンコードしてHTTPヘッダのAuthorizationに設定する
+- 実装が簡単
+- しかし盗聴されるとBase64デコードすることでセキュリティ性は低くない
+  - というわけでHTTPS化することが推奨される
+
+### ダイジェスト認証
+
+- Basic認証の改良版
+- サーバが生成したランダムの文字列をパスワードに付与し、IDとパスワードをMD5でハッシュ化して送信
+- サーバ側でも登録済みの認証情報をハッシュ化し、照合することで認証する
+
+### セッションベースの認証
+
+- リクエストの度にパスワード等を送るのは
+
+
+- トークンベースの認証
 
 ## サーバー側で認証認可に関連する情報を保持する方法
 
@@ -35,3 +60,11 @@
 - 読みたい記事や見たい動画
   - [SPAセキュリティ入門～PHP Conference Japan 2021 | ドクセル](https://www.docswell.com/s/ockeghem/ZM6VNK-phpconf2021-spa-security)
   - [Cookieにまつわるセキュリティ - YouTube](https://www.youtube.com/playlist?list=PLWiFLcGkQgLx8lbno3zZEinqu5C19hwET)
+
+## 認証技術
+
+### 
+
+## 参考
+
+- [HTTP 認証 - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Authentication)
