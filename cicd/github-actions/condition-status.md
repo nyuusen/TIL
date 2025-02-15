@@ -2,7 +2,7 @@
 
 ## はじめに
 
-GitHubActionsでジョブ実行の条件に指定できるが幾つがあるが、RequiredReviewが設定したEnvironmentにおいて、承認・承認却下した時の挙動を検証したい。
+GitHubActionsでジョブ実行の条件に指定できるが幾つがあるが、RequiredReviewが設定したEnvironmentにおいて、承認・承認却下した時の該当ステップの出力結果を検証したい。
 
 ## 検証リポジトリ
 
@@ -30,10 +30,10 @@ GitHubActionsでジョブ実行の条件に指定できるが幾つがあるが�
 
 ### 却下する
 
-- success: true
-- failure: false
+- success: false
+- failure: true
 - **cancel: false**
 
 ## まとめ
 
-却下した時に、canceledがfalseにならない点は注意したほうが良さそう。
+却下した時に、canceledがtrueにならない点は注意したほうが良さそう。
