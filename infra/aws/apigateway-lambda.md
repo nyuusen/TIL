@@ -46,6 +46,11 @@ WebSocket API: 全二重通信のためにクライアントとの永続的な�
 - OpenAPI定義ファイルをインポートすることで、API Gatewayのパスやスキーマの管理が可能
 - [API Gateway で OpenAPI を使用して REST API を開発する - Amazon API Gateway](https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/api-gateway-import-api.html)
 
+### Lambda関数の更新方法
+
+- S3バケットにコードを配置する場合、source_code_hashで変更有無と更新が可能
+- つまり、S3バケットに更新後のコード(zip)を配置した後、terraformを流せば、Lambda関数の更新が行われる
+
 ## 参考
 
 - [Amazon API Gateway エンドポイントを使用した Lambda 関数の呼び出し - AWS Lambda](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/services-apigateway.html)
