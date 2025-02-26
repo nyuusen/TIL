@@ -45,6 +45,8 @@ WebSocket API: 全二重通信のためにクライアントとの永続的な�
 
 - OpenAPI定義ファイルをインポートすることで、API Gatewayのパスやスキーマの管理が可能
 - [API Gateway で OpenAPI を使用して REST API を開発する - Amazon API Gateway](https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/api-gateway-import-api.html)
+- リクエストのバリデーションも設定可能
+  - [x-amazon-apigateway-request-validator プロパティ - Amazon API Gateway](https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/api-gateway-swagger-extensions-request-validator.html)
 
 ### Lambda関数の更新方法
 
