@@ -1,6 +1,6 @@
 # Basic認証
 
-- username:passwordをBase64エンコードする
+- username:passwordをBase64エンコードしてAuthorizationヘッダにセットする
 - なぜbase64エンコードするのか？
     - base64は暗号化ではなくデコードが容易
     - base64エンコードすることでASCII文字で表現できるため(ヘッダはASCII文字で構成される)
