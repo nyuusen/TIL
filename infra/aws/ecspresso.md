@@ -67,6 +67,13 @@ ecspressoを用いてECSデプロイを行うには以下が必要である
 - タスク定義ファイルのimageフィールドの値を{{ must_env `IMAGE_TAG` }}のような形にする
 - `IMAGE_TAG=stable ecspresso deploy --config ecspresso.yml`のように環境変数IMAGE_TAGにイメージタグをセットし、ecspresso deployコマンドを実行する
 
+## terraformとの共存
+
+- terraformで先にECS Service/Taskを作成する
+  - lifecycle ignore_changes=allを設定することで、以降は変更検知せずにterraformではスルーさせることができる
+- その後はecspresso設定ファイルを編集することで、タスク定義の変更等を行い、ecspressoでアプリケーションデプロイができるようになる
+- こうすることで、本来あるべきインフラとアプリのライフサイクルに沿った運用が可能になりそう
+
 ## 参考リンク
 
 - [Amazon ECS デプロイツール ecspresso 開発5年の歩み - Speaker Deck](https://speakerdeck.com/fujiwara3/amazon-ecs-depuroituru-ecspresso-kai-fa-5nian-nobu-mi?slide=29)
