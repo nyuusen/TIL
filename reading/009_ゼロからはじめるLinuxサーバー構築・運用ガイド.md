@@ -57,4 +57,7 @@
 - カーネル
   - ![image](https://cdn-xtech.nikkei.com/atcl/nxt/column/18/02898/072200001/zu02.jpg?__scale=w:500,h:273&_sh=0f1067090c)
   - OSの中核プログラム
-- 主なサーバーソフトウェア
+
+## 2章 仮想サーバを用意しよう
+
+- 
