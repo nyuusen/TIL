@@ -227,3 +227,9 @@
 - ジョブ間のデータ共有
   - $GITHUB_OUTPUT環境変数に出力し、stepsコンテキスト経由で受け渡す
   - 受け取る側は、needsコンテキストを経由で受け取る
+
+### Environments
+
+- 環境差分をパラメータ化でき、VariablesとSecretsがある
+- 参照方法は、通常のVariablesとSecretsと同一(vars.xxx, secrets.xxx)
+- よくあるのはワークフローの入力値で環境名をもらい、それをenvironmentsにセットし、同じ変数名(環境ごとに値が異なる)を参照
