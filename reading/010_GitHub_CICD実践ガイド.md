@@ -452,4 +452,6 @@
 
 - 以下の2つを作成する
   - OIDC Provider
+    - AWSがGitHub OIDC Providerを信頼するように設定
   - IAMロール
+    - 一時クレデンシャルのアクセス先とアクセス元を制御する
