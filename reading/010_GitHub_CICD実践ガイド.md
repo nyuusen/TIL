@@ -448,10 +448,24 @@
 - 認証パラメータ(AWSアカウントIDやIAMロール名)はSecretsで管理する
   - これらクレデンシャルではないものの、ログ出力時にマスクされるので、謝ってパブリックリポジトリでワークフローを実行しても、第三者へ余計な情報が漏れない
 
-### AWSにおけるOIDC利用準備
+### AWSにおけるOIDC利用準備と連携
 
 - 以下の2つを作成する
   - OIDC Provider
     - AWSがGitHub OIDC Providerを信頼するように設定
   - IAMロール
     - 一時クレデンシャルのアクセス先とアクセス元を制御する
+- GHAワークフロー側での設定作業
+  - Secrets登録
+    - AWSアカウントID
+    - IAMロール名
+- ワークフロー実装
+  - permissions
+    - `id-token: write`の設定が必要
+      - GitHub OIDC ProviderからOIDCトークン取得に必要
+  - aws-actions/configure-aws-credentialsを利用
+    - ロールARNとセッション名、デフォルトリージョンをパラメータとして指定する
+    - セッション名は、AssumeRole APIに渡すパラメータ名であり、CloudTrailやAWSのログにセッション名と記録される
+      - セッション単位で一意になる必要がある
+      - 「誰が・いつ・どのジョブでこのセッションを作ったか分かる」ような情報を含めると便利
+      - `"${{ github.workflow }}-${{ github.run_id }}-${{ github.actor }}"`とか
