@@ -465,7 +465,13 @@
       - GitHub OIDC ProviderからOIDCトークン取得に必要
   - aws-actions/configure-aws-credentialsを利用
     - ロールARNとセッション名、デフォルトリージョンをパラメータとして指定する
-    - セッション名は、AssumeRole APIに渡すパラメータ名であり、CloudTrailやAWSのログにセッション名と記録される
-      - セッション単位で一意になる必要がある
+    - セッション名は、トレーザビリティを目的に、AssumeRole APIに渡すパラメータ名であり、CloudTrailのセッション名として記録される
       - 「誰が・いつ・どのジョブでこのセッションを作ったか分かる」ような情報を含めると便利
-      - `"${{ github.workflow }}-${{ github.run_id }}-${{ github.actor }}"`とか
+      - 例：`"${{ github.workflow }}-${{ github.run_id }}-${{ github.actor }}"`
+- CloudRolesのセキュアな運用
+  - 他のリポジトリからアクセスできないことを確認しておく
+  - CloudRolesは目的ごとに分離する（必要最小限の権限だけ）
+  - クラウドプロバイダの設定作業にIaCを導入する
+
+## 12章 コンテナオーケストレーションのデプロイメント
+
