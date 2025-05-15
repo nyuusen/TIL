@@ -593,4 +593,7 @@
 - 対策として、
   - 中間環境変数による無害化
     - `env: PR_TITLE: ${{ github.event.pull_request.title }}`というような形でスクリプトインジェクションを防げる
-    - どの
+    - どのプロパティが危険かを正確に判断するのは困難なので、コンテキストは常に中間環境変数で参照するようにするのが確実で楽
+  - ShellCheckによる静的解析
+    - Github-Hosted Runnerには最初からインストールされている
+    - actionlintは内部的にShellCheckを実行していて、yamlに直接書いたスクリプトもチェックしてくれる
