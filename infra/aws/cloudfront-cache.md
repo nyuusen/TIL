@@ -1,8 +1,12 @@
 # CloudFrontのキャッシュについて
 
+## はじめに
+
+新規システム構築時にキャッシュ戦略を考えたのでまとめる
+
 ## キャッシュする場所
 
-`クライアント(ブラウザ)----CloudFront----オリジン` という構成の場合、キャッシュする場所としては以下がある。
+`クライアント(ブラウザ) ---- CDN(CloudFront) ---- オリジンサーバー` という構成の場合、キャッシュする場所としては以下がある。
 
 - ブラウザ
 - CloudFront(CDN)
@@ -39,7 +43,7 @@ Next.jsのようなJavaScriptフレームワークを使用しており、ビル
 
 ### API
 
-ユーザー固有の情報を返すようなAPIの場合はキャッシュ無効化(no-store, private等)にすべき。  
+ユーザー固有の情報を返すようなAPIの場合はキャッシュ無効化(no-store)やプライベート化(private)にすべき。  
 キャッシュが他のユーザーの情報を返してしまい事故リスクがあるため。
 
 ## Cache-Control
@@ -47,7 +51,7 @@ Next.jsのようなJavaScriptフレームワークを使用しており、ビル
 以下を見れば全てがわかる!!  
 [Cache-Control - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Cache-Control)
 
-気になった箇所だけちょっと補足します。
+気になった箇所だけちょっと補足
 
 - privateとno-storeの違い
   - private: クライアント側のキャッシュに限定（CDNにはキャッシュしない）
