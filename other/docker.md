@@ -199,3 +199,22 @@ ENTRYPOINT はDocker起動時のコマンドを強制します。
 - データを永続化するための機能
 - Dockerコンテナは基本的にはエフェメラル（短命）なもので、ライフサイクルの終了とともにコンテナ上で作成されたファイルは消失する
 - ボリュームタイプには以下の2種類がある
+
+### Data Volume
+
+- コンテナのライフサイクルの外で管理されるファイル/ディレクトリの設定
+- `-v <CONTAINER PATH>` or `-v <HOST PATH>:<CONTAINER PATH>`
+- コンテナの外側＝ホスト側にファイルが保管される
+
+### Data Volume Container
+
+- 他のコンテナで指定されているボリュームを参照するための機能（コンテナ間でボリュームを共有する）
+- `--volumes-from`でコンテナ名を指定することで、別のコンテナのボリュームを参照できる
+- 今の時代では、Named Volume(`-v mydata:data`)や上記のData VolumeのBind Mount(`-v <HOST PATH>:<CONTAINER PATH>`)を使用するケースが多そう
+  - Named Volumeの補足として、Linuxの場合は大抵`/var/lib/docker/volumes/mydata/_data/`に保存される
+
+## プロダクションでの活用Tips
+
+### セキュリティ
+
+- rootユーザーを使わない
