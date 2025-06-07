@@ -235,6 +235,11 @@ ENTRYPOINT はDocker起動時のコマンドを強制します。
   - GitHub ActionsでDocker社公式のdocker/scout-actionというCVEベースの脆弱性検知を行ってくれるみたい
   - Dockerfileでマルチステージビルドを行い、Dockerfile内でセキュリティツールを実行する
   - Snykをサイドカーとして動かしてリアルタイムでの自動検知
+- ファイルのマウントが必要な場合は最小限にする
+  - ホストのファイルをマウントする場合はRead-Onlyなど権限は必要最低限にする
+  - 特にdockerソケット(`/var/run/docker.sock`)の扱いは注意
+    - dockerソケットとは、Dockerデーモンが提供するUNIXソケットファイル
+    - このソケットを通じて、docker buildやrunなどのCLIコマンドはデーモンと通信している（つまりDocker APIの入口）
 
 ## 1コンテナ1プロセスの原則
 
