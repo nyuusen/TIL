@@ -22,3 +22,10 @@
 - AWS推奨＆公式ECSロギング機構
 - タスク定義のログドライバに`awsfirelens`を設定するだけ
 - 内部的には背後にFluentBitがサイドカーとして自動で立ち上がる
+
+## 業務での設定例
+
+- ECSのログドライバとしてCloudWatch Logsを設定
+- CloudWatch Logsにログが吐かれたらLambdaを実行し、LambdaでNewRelicにログ転送
+  - Lambdaトリガーはサブスクリプションフィルターを使って、特定のロググループに新しいログが出力されるたびにLambdaにストリーミングする設定
+- メトリクスは、メトリクスストリームを設定して、NewRelicで収集
