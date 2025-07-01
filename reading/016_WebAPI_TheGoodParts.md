@@ -33,3 +33,8 @@
     - X-HTTP-Method-Overrideヘッダの方が好ましい（理由：_methodはContentTypeが限られるのと、リクエスト本文に関係のないメタ情報が入ってしまう点が微妙）
     - ちなみにX-HTTP-Method-Overrideヘッダを使用すると、一旦ブラウザからはPOSTで送信するけど、サーバー側ではDELETE等で処理を行うことを期待すると言う意味合い
       - なのでサーバー側ではこのヘッダがセットされた時の実装を考慮する必要がある
+- URLとメソッド
+  - `user/`: 一覧系
+  - `user/:id`: 詳細系
+  - 上記のエンドポイントに対して、GETなら取得、POSTなら登録、DELETEなら削除といったように、エンドポイントで「あるデータの集合」や「個々のデータ」表現し、HTTPメソッドで操作を表すのがWebAPI設計の基本中の基本となる
+- URL設計に関しては少しだけ深掘りしてメモを残した: https://github.com/nyuusen/TIL/blob/f8c0a5e7b01f9d2bd9b5e9fb66f658e0e8147c2f/system-design/url-path.md
