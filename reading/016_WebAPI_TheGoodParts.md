@@ -76,4 +76,10 @@
 - ホスト名の設計
   - 多くのサービスはapi.twitter.comのように、apiというサブドメインにしている
   - twitter.com/apiのように、パスの第1階層をapiにしてしまうという選択肢もあるが、ホスト名に入れた方が長さ的にも合理的であり、DNSレベルで分割できるのでホスト名に入れてしまった方が良い
-  - 
+- LSUDsとSSKDs
+  - LSUDs: Large Set of Unknown Developers
+    - 大多数向けの未知の外部開発者に向けたAPI
+    - ここまでの話は、このLSUDsの話
+  - SSKDs: Small Set of Known Developers
+    - 利用者が自分が知っている開発者向けのAPI（自分でコントロールできる人たち）
+    - 1スクリーン＝1APIという言葉があるが、画面側の要求に合わせてAPIを設計すると、必ずしも美しい設計にはならない
