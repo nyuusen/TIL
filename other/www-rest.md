@@ -46,4 +46,4 @@
 ## JSONを返すWeb APIがなぜRESTと誤用されるのか？
 
 - Ajax + JSONの台頭により、Web API＝JSONを返すAPIという認識が広まった
-- その時に設計されるAPIがRESTful（RESTっぽい）ものが多かったので、REST API＝JSON APIという誤用が広まった
+- その時に設計されるAPIがRESTful（RESTっぽい）ものが多かったので、REST API＝JSONを返すWebAPIという誤用が広まった
