@@ -301,6 +301,21 @@
     - x-とついているが、現在までにx-がないものが検討されているが、ずっとx-つきが利用されている例外的なメディアタイプ
   - ちなみに、ファイル添付など複数のデータが混在する場合は、multipart/form-dataを指定する
     - applicationというトップレベルタイプ名ではない理由は、multipartは明確に独立したトップレベルタイプと定義されていて、「中に複数の完全なメッセージパートを持てる入れ子構造」とされている（各パートが独立してContent-Typeを持てる）
+    - multipart/form-dataの構造イメージ↓
+      ```
+        Content-Type: multipart/form-data; boundary=---123abc
+
+        -----123abc
+        Content-Disposition: form-data; name="name"
+
+        Taro
+        -----123abc
+        Content-Disposition: form-data; name="avatar"; filename="taro.jpg"
+        Content-Type: image/jpeg
+
+        (binary image data)
+        -----123abc--
+      ```
 - Acceptは、どんなメディアタイプを受け入れ可能かをサーバに伝えるために利用する
   - ブラウザやFetchがよしなに適切な値をセットするので、あえて自分で実装する機会は少なそう
   - Acceptによってサーバーがレスポンス内容（形式）を変える場合、キャッシュVaryにAcceptを入れることを忘れずに。
@@ -318,3 +333,12 @@
   - ユーザー認証情報を渡すには、追加のHTTPレスポンスヘッダが必要
   - 具体的にはAccess-Control-Allow-Credentialsヘッダにtrueを返すことで、「認証情報を認識している」とクライアントに伝える
   - これがないと、ブラウザは受け取ったレスポンスを拒否する
+    - 具体的には、クライアントがCookie付きリクエスト送る→サーバーがAccess-Control-Allow-Credentialsなしで返す→クライアント側でレスポンス受信するがJavaScriptには渡さないという流れ（ネットワークタブではレスポンス内容見れるらしい）
+  - ちなみに、`Access-Control-Allow-Credentials: true`の場合は、`Access-Control-Allow-Origin: *`は使用できない（どこからでもOKだけど、Cookieは受け付けるよはセキュリティ的に緩すぎるためらしい）
+  - Access-Control-Allow-Credentialsの存在意義（結局これがあることで何を防ぎたいのかがわからないので調べた）
+    - 結論: CSRFとセッションハイジャックといったセッションベースの攻撃を防ぐため。
+      - CSRF: ユーザーが意図しないリクエストを第三者が送らせる
+        - ユーザーが銀行サイトのセッションをCookieで持っていて、悪意ある別のサイトのフォームに送金エンドポイントへのSubmit処理が仕込まれていて、サーバーからするとセッション一致するから正常なリクエストだ！となるやつ
+    - これを防ぐために、
+      - クロスサイトでCookieを送信させない：SameSite属性
+      - クライアントJSにレスポンスを渡さない：`Access-Control-Allow-Credentials: true`
