@@ -379,4 +379,8 @@
 
 - XSS
   - https://github.com/nyuusen/TIL/blob/60c2b6c897fb782d976f7e6e412eabc28a4ef146/security/xss.md にまとめた
-  - 
+  - Content-Typeを正しく設定する
+    - JSONの値にJavaScriptコードが含まれていて、Content-Typeをtext/htmlだった場合、HTMLとして解釈され実行されてしまう
+    - ただ、Content-Typeを正しく設定するだけでは対策としては不十分で、IEにContentSnifferingと言う、データ内容からデータ形式を推定する悪名高い機能が存在する
+      - これへの対策としては、`X-Content-Type-Options: nosniff`を設定する
+      - FirefoxやChfomeでも、JavaScriptとして実行可能なメディアタイプを限定することが可能となり、JSONインジェクションの危険性を減らすことができる
