@@ -444,3 +444,26 @@
     - (追記)現在は非推奨（[MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/X-Frame-Options)）
       - 代替として、CSPのframe-ancestorsディレクティブを`none`にする（[MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors)）
   - `Content-Security-Policy`
+    - 読み込んだHTML内のimg要素・script要素・link要素などの読み込み先としてどこを許可するかを設定するヘッダ
+    - 特定要素は自分自身と同じ生成元に限定するといった形で限定できるので、XSSの危険性を低減することができる
+    - WebAPIの場合のXSSは、たとえば間違ってデータがHTMLと解釈されてしまった場合などに発生する（JSONに含まれるscriptタグがHTMLとして解釈され実行されてしまう）が、そうでもなければAPIの返すデータから他のリソースがブラウザによって読み込まれる場合はほとんど考えられないので、他のリソースを読み込まないという意味で、`default-src 'none'`
+    - Next.jsであれば、next.config.jsに
+  - `Strict-Transport-Security`
+    - HSTSを実現するためのヘッダで、ブラウザからのアクセスをHTTPSのみに限定させる
+    - HTTPでアクセスされたらHTTPSにリダイレクトするという方法がよく使われるが、一度はHTTPでアクセスされてしまうため、初回のHTTPアクセスが中間者攻撃を受ける可能性がある
+    - HSTSの値には`max-age=15768000`といった具合で書くと、HTTPSでアクセスしてきたブラウザに対して指定の期間はHTTPSを使用せよと命令するイメージ
+    - `includeSubDomains`はサブドメインも全て対象にするという設定
+      - この記録は、ブラウザの内部ストレージ（HSTSポリシーストア ※CookieやLocalStorageとは完全に別物で、JSからはアクセスできない）に保存される
+  - `Public-Key-Pins`
+    - HPKP、通称証明書のピン留め
+    - 中間者攻撃（MITM）対策
+    - サーバーがこのヘッダを返すことで、この期間(max-age)はブラウザ側で証明書内容ハッシュ値(pin-sha256)を記憶しておいて、証明書ハッシュ値が異なった場合はブロックする（ブラウザが通信を拒否する）
+    - 正しく運用するのが極めて難しいため、現在は非推奨となっている
+      - たとえば誤った値を渡してしまった場合は、自分のサイトがブラウザからブロックされてしまうというリスク
+    - https://www.digicert.com/jp/blog/certificate-pinning-what-is-certificate-pinning
+  - `Set-Cookie`
+    - Secure属性: HTTPS通信のみで送信
+    - HttpOnly属性: JSからのアクセス防止
+- レートリミット（DDoS攻撃対策）
+  - 429を返し、エラーの詳細をボディに含めるべき
+  - Retry-Afterヘッダを返して、どれくらい待てば良いかの情報も返しても良い
