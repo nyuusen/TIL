@@ -427,3 +427,20 @@
 - 支払い偽装
   - 購入時の通信内容をキャプチャして、一度しか購入していないのに何度もアイテムをゲットできてしまう
   - アプリ内課金では、リクエスト内容にレシート（Apple側に問い合わせて支払情報を確認するコード）を送られて来るので、それを検証するようにする
+- セキュリティ関係のHTTPヘッダ
+  - `X-Content-Type-Options: nosniff`
+    - IEのContent Sniffingを無効にする
+      - JSONをJSON以外で解釈することを防いでくれるので、JSONの配信を行うAPIは付けた方が良い
+    - IE9やChromeではscript要素に指定されたファイルが、このヘッダが指定されており＆スクリプトを表すメディアタイプ(Content-Typeヘッダで指定された値)ではなかった場合は、実行を行わずにエラーになる
+      - たとえばGitHubではリポジトリ管理されているJSファイルを直接script要素として読み込まれないために、メディアタイプをtext/plainとし、このヘッダをつけている
+  - `X-XSS-Protection: 1; mode=block`
+    - ブラウザが備えているXSSの検出・防御機能を有効にするヘッダ
+    - リクエストにXSSが発生させそうなパターンがあり、それがそのままレスポンスに埋め込まれた場合にブロックされる
+    - (追記)本番環境では非推奨であり現代のブラウザではほとんど不要（[MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/X-XSS-Protection)）
+  - `X-Frame-Options: deny`
+    - frameやiframe要素での読み込まれることを拒否
+    - 透明なiframe要素をこっそり他のページに読み込み、あるページでユーザーがクリックしたと思ったら、その透明なiframe要素をクリックさせることで、不正にランキング星5をつけたりするクリックジャッキングを防ぐ
+    - 現在は発見されていない脆弱性を防ぐ意味でも、特にWeb APIはフレームで読み込まれる想定はないと思うので、つけた方が良い
+    - (追記)現在は非推奨（[MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/X-Frame-Options)）
+      - 代替として、CSPのframe-ancestorsディレクティブを`none`にする（[MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors)）
+  - `Content-Security-Policy`
