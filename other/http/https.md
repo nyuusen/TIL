@@ -1,5 +1,9 @@
 # HTTPS
 
+## HTTPS通信の流れ
+
+![](./https.png)
+
 ## SSL証明書の種類
 
 - ドメイン認証(DV)
