@@ -75,20 +75,20 @@
   - 高速化：レイヤー単位でダウンロード・展開
 - docker pushすると以下のようなハッシュ値が表示されるが、これがまさにレイヤ構造を表す処理（レイヤ単位での処理が行われている）
   ```
-    The push refers to repository [123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp]
-    d4f4f6a4b8c2: Pushed 
-    7a0437f04f83: Pushed 
-    8c662931926f: Pushed 
-    ...
+  The push refers to repository [123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp]
+  d4f4f6a4b8c2: Pushed 
+  7a0437f04f83: Pushed 
+  8c662931926f: Pushed 
+  ...
   ```
   - 各英数の値は、各レイヤのコンテンツハッシュ(SHA256)
     - 具体的にはそのレイヤの差分をtarアーカイブをgzipなりで圧縮→圧縮されたバイナリファイルをSHA256ハッシュ計算している
 - 整理すると、Dockerイメージはファイルシステムのスナップショットであり、それはレイヤー構造になっている
   - 以下のDockerfileを例に考えると、
     ```
-      FROM ubuntu:latest
-      RUN apt-get update
-      RUN apt-get install -y curl
+    FROM ubuntu:latest
+    RUN apt-get update
+    RUN apt-get install -y curl
     ```
     - 各行がレイヤとなっていて、そのレイヤで変更があったファイル群を持っているイメージ
   - この上に、Dockerはコンテナ起動した時に、書き込みできるレイヤを作っている
@@ -98,7 +98,6 @@
 - 参考リンク
   - [レイヤ — Docker-docs-ja 24.0 ドキュメント](https://docs.docker.jp/build/guide/layers.html)
   - [Dockerのまとめ - コンテナとイメージ編 #Docker - Qiita](https://qiita.com/kompiro/items/4153b4066a1837be7f98)
-
 
 ## Dockerfile
 
@@ -115,7 +114,7 @@
 
 #### RUN vs CMD
 
-- RUN: 
+- RUN:
   - イメージビルド時に実行される
   - レイヤとしてファイルシステムに反映されキャッシュが効く
 - CMD:
@@ -307,11 +306,11 @@ ENTRYPOINT はDocker起動時のコマンドを強制します。
   - Docker v19からbuildxというサブコマンドが増えた（ex: `docker buildx build`）
   - 以下のようなコマンドで、複数アーキテクチャに対応可能
     ```
-      $ docker buildx build \
-      --load \
-      --platform linux/amd64,linux/arm64 \
-      -t multi-platform \
-      .
+    $ docker buildx build \
+    --load \
+    --platform linux/amd64,linux/arm64 \
+    -t multi-platform \
+    .
     ```
   - 本番とローカルでアーキテクチャが異なる場合に便利
 
@@ -329,7 +328,7 @@ Dockerのイメージやコンテナを識別する時、結局何で識別す�
   - `docker build -t repository-name:tag-name` といった形で
 - コンテナ
   - コンテナ名 or コンテナID
-  - コンテナ名は、起動時に指定が可能  
+  - コンテナ名は、起動時に指定が可能
     - `docker run --name mycontainer image-name`
   - コンテナIDは、起動時に自動付与される一意の識別子
     - 通常64文字の英数字だが、先頭の12文字程度で識別可能

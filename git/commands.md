@@ -22,10 +22,10 @@ git diff <commit_hash>
 git diff --name-only
 ```
 
-## git push 
+## git push
 
--uオプションは、--set-upstreamの省略形(upstreamは上流という意味)  
-現在ブランチを指定したリモートブランチに紐付けするという意味  
+-uオプションは、--set-upstreamの省略形(upstreamは上流という意味)\
+現在ブランチを指定したリモートブランチに紐付けするという意味
 
 ```
 // (一度のみ実行)-uでリモートブランチを紐付けする

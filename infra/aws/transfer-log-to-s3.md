@@ -29,11 +29,11 @@ Webhookを受け付けるAWS Lambda関数で出力するログをS3に保存(転
 ### Lambda関数からリアルタイムにログをS3に転送
 
 - Lambda関数の処理の中でログの出力先(保存先)をS3に保存する
- - プログラム内でAWS SDKを使ってPutObjectメソッドを実行するイメージ 
+- プログラム内でAWS SDKを使ってPutObjectメソッドを実行するイメージ
 - Lambdaでリクエストを受け付ける度にS3アクセスが発生するため、レイテンシが懸念になる
 - ログ毎にファイル生成するのでは検索性が悪いので、1つのファイルに蓄積させる方法は(？)
   - ちょっと調べたが、GetObjectした後に更新したコンテントを新たにPutObjectするしかなさそう..？
-  - S3はオブジェクトストレージなので、ファイルに追記とかはできなそう 
+  - S3はオブジェクトストレージなので、ファイルに追記とかはできなそう
 - Lambdaのみで処理が完結するのはメリット(?)ではあるが、上記の懸念があるためあまり有効な選択肢にはならなそう
 
 ### その他
@@ -41,4 +41,5 @@ Webhookを受け付けるAWS Lambda関数で出力するログをS3に保存(転
 - CloudWatchLogsのサブスクリプションフィルターにて、KinesisDataFirehoseを指定し、KinesisDataFirehose側ではターゲットとなるS3を指定するKinesis Data Firehoseを使用してログをストリームさせる方法もあるっぽい
 
 ## 参考
+
 [CloudWatchLogsのログをS3に転送する方法の比較 #AWS - Qiita](https://qiita.com/Regryp/items/031141f8930c94378d5f)

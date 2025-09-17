@@ -2,7 +2,7 @@
 
 ## はじめに
 
-雰囲気の理解で使っていたブランチ及びHEADを理解する  
+雰囲気の理解で使っていたブランチ及びHEADを理解する\
 ちょっと調べた所、見事に自分が浮かべていたイメージと異なっていたので、調べたことをメモ
 
 ## ブランチとは？
@@ -33,4 +33,4 @@ git show @~
 
 ## 参考
 
-[GitのHEADとは何者なのか #Git - Qiita](https://qiita.com/ymzkjpx/items/00ff664da60c37458aaa)  
+[GitのHEADとは何者なのか #Git - Qiita](https://qiita.com/ymzkjpx/items/00ff664da60c37458aaa)

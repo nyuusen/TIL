@@ -7,7 +7,6 @@
 
 ※ピュアなGo言語といっても、低レイヤすぎる箇所(TCPコネクション等)は標準ライブラリを使用
 
-
 ## TCPコネクションの確立
 
 - `listener.Accept()`でTCPコネクションを確立させる
@@ -103,7 +102,7 @@ func main() {
 ## POST通信のフォーマットについて
 
 - formタグのenctype属性で指定することが可能
-- `application/x-www-form-urlencoded` 
+- `application/x-www-form-urlencoded`
   - デフォルト値
   - URLに使用可能な文字のみ使用する
   - 別名URLエンコーディング

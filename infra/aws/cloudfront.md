@@ -5,9 +5,9 @@
 
 ## 基本用語
 
-- CloudFrontディストリビューション: 
+- CloudFrontディストリビューション:
   - ユーザーが設定(作成)するCloudFrontリソース
-- ビヘイビア: 
+- ビヘイビア:
   - 振り分けルール
   - パスパターンでオリジンを振り分ける
   - `/api/*`はALBに、`/image/*`はS3にみたいな
@@ -36,5 +36,3 @@
 ```
 
 ref: [ディストリビューションの設定 - Amazon CloudFront](https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html)
-
-  

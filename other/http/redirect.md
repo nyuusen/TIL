@@ -39,7 +39,7 @@
 - リクエストされたリソースが**完全**にHTTPヘッダーのLocationで示されたURLに移動したことを示す(301と同じ)
 - リクエストメソッドと本文が変更されないことが保証される
 - 参考: [308 Permanent Redirect - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Status/308)
- 
+
 ## ステータスコード別のユースケース
 
 ではどれを使えば良いのかというのを調べてみる
@@ -83,8 +83,7 @@
 - JavaScriptで実装する(window.location.hrefなど)
   - ただしこれだとSEO観点で検索エンジンがURL変更を認識できず宜しくないらしい
     - canonicalタグで代替可能か？(`<meta><link ref="canonical" href="new_url" />...</meta>`)
- 
+
 ## 所感
 
 これまではtoBサービスを開発することが多かったので、SEOとかあまり気にしていなかったけど、toCサービスだとSEO観点も含めて実現方法を検討する必要があるんだと感じた。APIなら301リダイレクトで、静的なHTMLならmeta refreshで実装するのが良さそうなのかな。
-  

@@ -1,0 +1,5 @@
+{
+  "indentWidth": 2,
+  "excludes": [],
+  "plugins": ["https://plugins.dprint.dev/markdown-0.19.0.wasm"]
+}

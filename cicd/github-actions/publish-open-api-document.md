@@ -4,7 +4,7 @@
 
 以下を実現するGitHub Actionsのワークフローを作成した。
 
-- OpenAPIで記述されたyamlファイルをredocly(npmパッケージ)でhtmlを生成  
+- OpenAPIで記述されたyamlファイルをredocly(npmパッケージ)でhtmlを生成
 - gh-pagesブランチにコミット&プッシュするワークフローを作成
 
 前提として、gh-pagesブランチへのコミット&プッシュされることでGitHubPagesにデプロイされる設定をしている
@@ -51,8 +51,6 @@ jobs:
           git add -f ./docs/api.html
           git commit -m "publish api doc"
           git push -f -u origin gh-pages
-
-
 ```
 
 ※本コードを実装したリポジトリ: [udemy-github-actions](https://github.com/nyuusen/udemy-github-actions)
@@ -65,7 +63,7 @@ package.jsonが存在しないプロジェクトであることもあり、node�
 
 ### コミットするgitユーザーどうしようか問題
 
-前提として、自動ビルドしたhtmlをコミットするので、特定の実ユーザーではなく、bot等にコミットさせたい(同時にunknownユーザー等になってしまうことも避けたい)  
+前提として、自動ビルドしたhtmlをコミットするので、特定の実ユーザーではなく、bot等にコミットさせたい(同時にunknownユーザー等になってしまうことも避けたい)\
 結論、GitHub側で用意しているbotユーザーを使用することにした
 
 ```
@@ -84,13 +82,14 @@ Permission to nyuusen/udemy-github-actions.git denied to github-actions[bot].
 fatal: unable to access 'https://github.com/nyuusen/udemy-github-actions/': The requested URL returned error: 403
 ```
 
-GUI上から以下で権限付与することで解決した  
+GUI上から以下で権限付与することで解決した\
 `settings -> Actions -> General -> Workflow permissions -> Read and write permissionsにチェックを入れる`
 
-ワークフロー毎に権限を付与することも可能らしい  
+ワークフロー毎に権限を付与することも可能らしい\
 参考: [権限をジョブに割り当てる - GitHub Enterprise Cloud Docs](https://docs.github.com/ja/enterprise-cloud@latest/actions/using-jobs/assigning-permissions-to-jobs)
 
 ### git push時にリモートにある変更がローカルにないエラーが発生する
+
 エラー全文は下記の通り。
 
 ```
@@ -105,5 +104,5 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 Error: Process completed with exit code 1.
 ```
 
-gh-pagesブランチは、GitHubActionsワークフローからしかコミットされないため、  
+gh-pagesブランチは、GitHubActionsワークフローからしかコミットされないため、\
 コマンドを`git push origin gh-pages`から`git push -f -u origin gh-pages`に変更することで解決。

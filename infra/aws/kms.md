@@ -9,14 +9,14 @@
 
 - データの暗号化に必要な暗号化キーを保護する必要がある
 - キーの作成・管理・使用・削除がAWS KMS内でのみで行われるので、安全性が高い
-  - 自前でこの辺りやるのは大変だけど、KMSで楽に安全にできるよということ 
+  - 自前でこの辺りやるのは大変だけど、KMSで楽に安全にできるよということ
 
 ## KMSの料金
 
 - 作成したキーに対して、1USD/月
 - ローテーションすると2回目までは1USD/月
 - APIリクエストあたり0.0x$
-- [料金 - AWS Key Management Service | AWS](https://aws.amazon.com/jp/kms/pricing/) 
+- [料金 - AWS Key Management Service | AWS](https://aws.amazon.com/jp/kms/pricing/)
 
 ## エイリアス
 

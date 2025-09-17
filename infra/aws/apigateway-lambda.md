@@ -26,6 +26,7 @@
 ## 調査メモ
 
 ### HTTPリクエストを使用してLambda関数を呼び出す方法
+
 - API Gatewayの他にLambdaURLがある
   - [HTTP リクエストを使用して Lambda 関数を呼び出す方法を選択する - AWS Lambda](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/apig-http-invoke-decision.html)
   - シンプル・コスト効率を意識する場合は、LambdaURLで推奨
@@ -34,8 +35,8 @@
 ### API GatewayのAPIタイプ
 
 > HTTP API: 軽量で低レイテンシーの RESTful API。
-REST API: カスタマイズ可能で機能豊富な RESTful API。
-WebSocket API: 全二重通信のためにクライアントとの永続的な接続を維持するウェブ API。
+> REST API: カスタマイズ可能で機能豊富な RESTful API。
+> WebSocket API: 全二重通信のためにクライアントとの永続的な接続を維持するウェブ API。
 
 - HTTPとRESTどっちを選べば良いか問題
   - [Choose between REST APIs and HTTP APIs - Amazon API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html)

@@ -20,7 +20,7 @@
 - 前提として、ElasticCache にはいくつかの種類がある
   - オンデマンド、リザーブド、サーバレス..
 - オンデマンドの場合は、キャッシュノードタイプ(cache.t4g.micro)に応じて、時間あたりの料金が発生する
-  - 詳細: [料金 - Amazon ElastiCache | AWS](<https://aws.amazon.com/jp/elasticache/pricing/>)
+  - 詳細: [料金 - Amazon ElastiCache | AWS](https://aws.amazon.com/jp/elasticache/pricing/)
 
 ## ユースケース
 
@@ -43,7 +43,7 @@
 
 - シンプルな Memcached と高機能な Redis
 - 結論としては安全性でも機能面でも全てにおいてRedisを使用するのが良いと思われる
-- [ElastiCacheはMemcachedとRedisのどっちを選ぶ？ | DevelopersIO](<https://dev.classmethod.jp/articles/which-choice-redis-memcached/>)
+- [ElastiCacheはMemcachedとRedisのどっちを選ぶ？ | DevelopersIO](https://dev.classmethod.jp/articles/which-choice-redis-memcached/)
 
 ### Memcached
 
@@ -67,10 +67,11 @@
 ## DynamoDBとの比較
 
 以下の記事に比較しているセクションがあるので、少し考えてみる
-- [ElastiCacheは良いサービス！！特徴や使い方をおさらいしましょ！ | DevelopersIO](<https://dev.classmethod.jp/articles/elasticache-is-very-good-lets-review/>)
+
+- [ElastiCacheは良いサービス！！特徴や使い方をおさらいしましょ！ | DevelopersIO](https://dev.classmethod.jp/articles/elasticache-is-very-good-lets-review/)
 
 > ElastiCacheはノードやクラスターの管理をユーザ側でしなければなりませんが、DynamoDBはその辺りの管理をしなくて良いのが便利
->
+
 →セキュリティやエンジンのアップデート(サービスの更新)をユーザー側で行う必要があるという意味かな？
 
 > DynamoDBは可用性担保のために書き込まれたデータを複数のAZに保存したり、接続にはSSLを用いるのでElastiCacheに比べるとやや書き込みが遅くなります。
@@ -82,11 +83,11 @@
 →なるほど〜
 
 まとめると、
+
 - 最悪消失しても良いデータであり、書き込みと読み込みが頻繁に行われ、何より高速な通信したい→ElastiCache
 - データを永続化したい→DynamoDB
 
 ## 参考
 
-- [AWS 再入門 2022 AWS ElastiCache について | DevelopersIO](<https://dev.classmethod.jp/articles/re-introduction-2022-amazon-elasticache/>)
-- [ElastiCache は良いサービス！！特徴や使い方をおさらいしましょ！ | DevelopersIO](<https://dev.classmethod.jp/articles/elasticache-is-very-good-lets-review/>)
-
+- [AWS 再入門 2022 AWS ElastiCache について | DevelopersIO](https://dev.classmethod.jp/articles/re-introduction-2022-amazon-elasticache/)
+- [ElastiCache は良いサービス！！特徴や使い方をおさらいしましょ！ | DevelopersIO](https://dev.classmethod.jp/articles/elasticache-is-very-good-lets-review/)
