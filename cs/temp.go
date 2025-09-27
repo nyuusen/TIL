@@ -3,28 +3,13 @@ package main
 import "fmt"
 
 func main() {
-	str := "ABCDEあいうえお"
-
-	fmt.Println(&str)
-
-	// 文字列に対するインデックスアクセスはバイトが返る
-	for i := 0; i < len(str); i++ {
-		byte := str[i]
-		fmt.Println(i, byte)
-	}
-
-	// 文字列に対するfor-rangeはruneが返る
-	for i, rune := range str {
-		fmt.Println(i, rune)
-	}
-
-	fmt.Println(firstChar(str))
+	fmt.Println(weekly7DaysSales(260))
+	fmt.Println(weekly7DaysSales(255))
 }
 
-// 引数の文字列の最初の文字を返す関数
-func firstChar(s string) string {
-	for _, r := range s {
-		return string(r)
-	}
-	return ""
+func weekly7DaysSales(ticketPrice int32) int32 {
+	// float64にキャストして計算する
+	diff := (250.0 - float64(ticketPrice)) / 10.0
+	// int32にキャストして返す
+	return int32(150000 + (diff * 7000))
 }
