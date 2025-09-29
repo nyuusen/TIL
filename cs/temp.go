@@ -9,6 +9,8 @@ import (
 func main() {
 	fmt.Println(weekly7DaysSales(260))
 	fmt.Println(weekly7DaysSales(255))
+
+	fmt.Println(3 / 2)
 }
 
 func weekly7DaysSales(ticketPrice int32) int32 {
@@ -73,23 +75,48 @@ func lastFourHint(stringInput string) string {
 	return "Hint is:" + stringInput[length-4:]
 }
 
-func isValidEmail(email string) bool{
-    // 関数を完成させてください
-		if strings.HasPrefix(email, "@") {
-			return false
-		}
+func isValidEmail(email string) bool {
+	// 関数を完成させてください
+	if strings.HasPrefix(email, "@") {
+		return false
+	}
 
-		if strings.Contains(email, " ") {
-			return false
-		}
+	if strings.Contains(email, " ") {
+		return false
+	}
 
-		if strings.Count(email, "@") != 1 {
-			return false
-		}
+	if strings.Count(email, "@") != 1 {
+		return false
+	}
 
-		if strings.Index(email, "@") > strings.LastIndex(email, ".") {
-			return false
-		}
+	if strings.Index(email, "@") > strings.LastIndex(email, ".") {
+		return false
+	}
 
-		return true
+	return true
+}
+
+func middleSubstring(s string) string {
+	runes := []rune(s)
+	n := len(runes)
+
+	if n <= 2 {
+		if n == 0 {
+			return ""
+		}
+		return string(runes[0])
+	}
+
+	var start, length int
+	if n%2 == 0 {
+		// 偶数
+		length = n / 2
+		start = (n - length + 1) / 2
+	} else {
+		// 奇数
+		length = n / 2
+		start = (length + 1) / 2
+	}
+
+	return string(runes[start : start+length])
 }
