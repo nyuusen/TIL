@@ -1,4 +1,4 @@
-package main
+package beginner
 
 import (
 	"fmt"
@@ -7,10 +7,10 @@ import (
 )
 
 func main() {
-	fmt.Println(weekly7DaysSales(260))
-	fmt.Println(weekly7DaysSales(255))
-
-	fmt.Println(3 / 2)
+	howMuchIsYourDebt(2)
+	howMuchIsYourDebt(3)
+	howMuchIsYourDebt(5)
+	howMuchIsYourDebt(10)
 }
 
 func weekly7DaysSales(ticketPrice int32) int32 {
@@ -42,8 +42,14 @@ func vacationRental(people int32, day int32) int32 {
 func howMuchIsYourDebt(year int32) int32 {
 	// 関数を完成させてください
 	// 年利20％で10000円を借りた場合、year年後にいくら返済する必要があるかを計算して返す
-	debt := float64(10000) * math.Pow(1.2, float64(year))
-	return int32(math.Floor(debt))
+	principal := 10000
+	rate := 1.2
+	interest := math.Pow(rate, float64(year))
+	sum := float64(principal) * interest
+
+	fmt.Printf("year: %d, principal: %d, rate: %f, interest: %f sum: %f \n", year, principal, rate, interest, sum)
+
+	return int32(math.Floor(sum))
 }
 
 func isRationalNumber(number int32) bool {
@@ -119,4 +125,29 @@ func middleSubstring(s string) string {
 	}
 
 	return string(runes[start : start+length])
+}
+
+func calculateLocation(latitude float64, longitude float64) string {
+	// 関数を完成させてください
+	var ret1 string
+	var ret2 string
+	switch {
+	case latitude == 0:
+		ret1 = "equator"
+	case latitude > 0:
+		ret1 = "north"
+	case latitude < 0:
+		ret1 = "south"
+	}
+
+	switch {
+	case longitude == 0:
+		ret2 = "prime meridian"
+	case longitude > 0:
+		ret2 = "east"
+	case longitude < 0:
+		ret2 = "west"
+	}
+
+	return ret1 + "/" + ret2
 }
