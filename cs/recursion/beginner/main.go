@@ -21,7 +21,7 @@ func weekly7DaysSales(ticketPrice int32) int32 {
 }
 
 func vacationRental(people int32, day int32) int32 {
-	// 関数を完成させてください
+
 	var stayPrice int32
 	if day <= 3 {
 		stayPrice = 80
@@ -40,7 +40,7 @@ func vacationRental(people int32, day int32) int32 {
 }
 
 func howMuchIsYourDebt(year int32) int32 {
-	// 関数を完成させてください
+
 	// 年利20％で10000円を借りた場合、year年後にいくら返済する必要があるかを計算して返す
 	principal := 10000
 	rate := 1.2
@@ -53,18 +53,18 @@ func howMuchIsYourDebt(year int32) int32 {
 }
 
 func isRationalNumber(number int32) bool {
-	// 関数を完成させてください
+
 	res := math.Sqrt(float64(number))
 	return res == float64(int32(res))
 }
 
 func toLowerCase(stringInput string) string {
-	// 関数を完成させてください
+
 	return strings.ToLower(stringInput)
 }
 
 func insertUnderscoreAt(s string, i int32) string {
-	// 関数を完成させてください
+
 	if len(s)-1 < int(i) {
 		return s
 	}
@@ -72,7 +72,7 @@ func insertUnderscoreAt(s string, i int32) string {
 }
 
 func lastFourHint(stringInput string) string {
-	// 関数を完成させてください
+
 	length := len(stringInput)
 	if length < 6 {
 		return "There is no Hint"
@@ -82,7 +82,7 @@ func lastFourHint(stringInput string) string {
 }
 
 func isValidEmail(email string) bool {
-	// 関数を完成させてください
+
 	if strings.HasPrefix(email, "@") {
 		return false
 	}
@@ -128,7 +128,7 @@ func middleSubstring(s string) string {
 }
 
 func calculateLocation(latitude float64, longitude float64) string {
-	// 関数を完成させてください
+
 	var ret1 string
 	var ret2 string
 	switch {
