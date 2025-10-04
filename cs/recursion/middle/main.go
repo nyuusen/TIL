@@ -37,8 +37,102 @@ func main() {
 
 	// fmt.Printf("return value: %s\n", sheeps(3))
 
-	fmt.Printf("return value: %s\n", reverseString("abc"))
-	fmt.Printf("return value: %s\n", reverseString("recursion"))
+	// fmt.Printf("return value: %s\n", reverseString("abc"))
+	// fmt.Printf("return value: %s\n", reverseString("recursion"))
+
+	// fmt.Printf("return value: %d\n", countDivisibleByK(3, 2))
+	// fmt.Printf("return value: %d\n", countDivisibleByK(30, 5))
+	// fmt.Printf("return value: %d\n", countDivisibleByK(24, 2))
+
+	// fmt.Printf("return value: %d\n", maximumPeople(12, 18))
+	// fmt.Printf("return value: %d\n", maximumPeople(30, 242))
+
+	// fmt.Printf("return value: %d\n", threeGCD(12, 18, 24))
+	// fmt.Printf("return value: %d\n", threeGCD(30, 243, 91))
+
+	// fmt.Printf("return value: %s\n", stringCompression("aabbb"))
+	// fmt.Printf("return value: %s\n", stringCompression("ab"))
+
+	fmt.Printf("return value: %d\n", maxBread(10, 2, 3))
+}
+
+func maxBread(money int32, price int32, sticker int32) int32 {
+	// 購入できる最大のパンの個数
+	if money == 0 || money < price {
+		return 0
+	}
+	breads := money / price
+	return breads + exchangeBreadsByStickers(breads, sticker)
+}
+
+func exchangeBreadsByStickers(own int32, threshold int32) int32 {
+	if own < threshold {
+		return 0
+	}
+	breads := own / threshold
+	return breads + exchangeBreadsByStickers((own%threshold+breads), threshold)
+}
+
+func stringCompression(s string) string {
+	// 文字列の圧縮
+	// aaabbb -> a3b3
+	if len(s) == 0 {
+		return ""
+	}
+	target := s[0]
+	count := 1
+	for count < len(s) && s[count] == target {
+		count++
+	}
+	result := string(s[0])
+	if count > 1 {
+		result = fmt.Sprintf(result+"%d", count)
+	}
+	return result + stringCompression(s[count:])
+}
+
+func threeGCD(x int32, y int32, z int32) int32 {
+	// 3つの最大公約数
+	fmt.Printf("x: %d, y:%d, z:%d\n", x, y, z)
+	if y == 0 && z == 0 {
+		return x
+	}
+	// まずはx,yの最大公約数を求める
+	if x != 0 && y != 0 && z != 0 {
+		if x > y {
+			return threeGCD(y, x, z)
+		}
+		return threeGCD(x, y%x, z)
+	}
+	// x,yの最大公約数とzの最大公約数を求める
+	if y == 0 {
+		return threeGCD(x, z, y)
+	}
+	if x > y {
+		return threeGCD(y, x, z)
+	}
+	return threeGCD(x, y%x, z)
+}
+
+func maximumPeople(x int32, y int32) int32 {
+	// 最大公約数
+	if y == 0 {
+		return x
+	}
+	if x > y {
+		return maximumPeople(y, x)
+	}
+	return maximumPeople(x, y%x)
+}
+
+func countDivisibleByK(n int32, k int32) int32 {
+	// kで割り続ける
+	// 28,2 -> 28/2=14 14/2=7 の2回
+	rem := n % k
+	if rem != 0 {
+		return 0
+	}
+	return 1 + countDivisibleByK(n/k, k)
 }
 
 func reverseString(s string) string {
