@@ -53,7 +53,49 @@ func main() {
 	// fmt.Printf("return value: %s\n", stringCompression("aabbb"))
 	// fmt.Printf("return value: %s\n", stringCompression("ab"))
 
-	fmt.Printf("return value: %d\n", maxBread(10, 2, 3))
+	// fmt.Printf("return value: %d\n", maxBread(10, 2, 3))
+
+	// fmt.Printf("return value: %d\n", intSquareRoot(12))
+	// fmt.Printf("return value: %d\n", intSquareRoot(35))
+
+	fmt.Printf("return value: %t\n", recursiveIsPrime(1))
+	fmt.Printf("return value: %t\n", recursiveIsPrime(2))
+	fmt.Printf("return value: %t\n", recursiveIsPrime(25))
+	fmt.Printf("return value: %t\n", recursiveIsPrime(29))
+}
+
+func recursiveIsPrime(n int32) bool {
+	// 素数判定
+	return recursiveIsPrimeHelper(n, n-1)
+}
+
+func recursiveIsPrimeHelper(n int32, n2 int32) bool {
+	// 素数判定
+	// 素数である条件：1以外ではない数字で割り切れる
+	if n2 <= 0 {
+		return false
+	}
+	if n2 == 1 {
+		return true
+	}
+	if n%n2 == 0 {
+		return false
+	}
+	return recursiveIsPrimeHelper(n, n2-1)
+}
+
+func intSquareRoot(n int32) int32 {
+	// 整数上の平方根
+	// 自然数nの平方根の整数部分を計算する
+	return intSquareRootHelper(n, n)
+}
+
+func intSquareRootHelper(target int32, n int32) int32 {
+	result := n * n
+	if target >= result {
+		return n
+	}
+	return intSquareRootHelper(target, n-1)
 }
 
 func maxBread(money int32, price int32, sticker int32) int32 {
