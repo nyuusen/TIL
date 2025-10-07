@@ -58,10 +58,75 @@ func main() {
 	// fmt.Printf("return value: %d\n", intSquareRoot(12))
 	// fmt.Printf("return value: %d\n", intSquareRoot(35))
 
-	fmt.Printf("return value: %t\n", recursiveIsPrime(1))
-	fmt.Printf("return value: %t\n", recursiveIsPrime(2))
-	fmt.Printf("return value: %t\n", recursiveIsPrime(25))
-	fmt.Printf("return value: %t\n", recursiveIsPrime(29))
+	// fmt.Printf("return value: %t\n", recursiveIsPrime(1))
+	// fmt.Printf("return value: %t\n", recursiveIsPrime(2))
+	// fmt.Printf("return value: %t\n", recursiveIsPrime(25))
+	// fmt.Printf("return value: %t\n", recursiveIsPrime(29))
+
+	// fmt.Printf("return value: %d\n", countSquare(28, 32))
+
+	// fmt.Printf("return value: %d\n", splitAndAdd(234))
+
+	fmt.Printf("return value: %d\n", multipleOfTwoTotal(3))
+	fmt.Printf("return value: %d\n", multipleOfTwoTotal(2))
+}
+
+func fibonacciNumber(n int32) int32 {
+	// フィボナッチ数列
+	return n
+}
+
+func multipleOfTwoTotal(n int32) int32 {
+	// 2の倍数の総和の総和
+	// nが3のとき20,nが2のとき8
+	// multipleOfTwoTotal(3) = multipleOfTwoTotalHelper(3) + multipleOfTwoTotal(2)
+	if n == 0 {
+		return 0
+	}
+	return multipleOfTwoTotalHelper(n) + multipleOfTwoTotal(n-1)
+}
+
+func multipleOfTwoTotalHelper(n int32) int32 {
+	// 2の倍数の総和
+	// nが3のとき12,nが2のとき6
+	// multipleOfTwoTotalHelper(3) = 2 * n +  multipleOfTwoTotalHelper(2)
+	if n == 0 {
+		return 0
+	}
+	return (n * 2) + multipleOfTwoTotalHelper(n-1)
+}
+
+func splitAndAdd(digits int32) int32 {
+	// 桁ごとに抽出して足し算
+	// 123 -> 1+2+3
+	// 0以下の場合は0を返す(ベースケース)
+	if digits <= 0 {
+		return 0
+	}
+	// 10未満(1桁)の場合はそのまま返す
+	if digits < 10 {
+		return digits
+	}
+	// 10で割った数の余り(123だったら3)と割った数(12)を再帰
+	return digits%10 + splitAndAdd(digits/10)
+}
+
+func countSquare(x int32, y int32) int32 {
+	// x,yを辺とする長方形から、できるだけ大きい正方形がいくつ作れるか
+	// まずは最大公約数を求める
+	side := gcd(x, y)
+	// 長方形面積から正方形面積を求める
+	return (x * y) / (side * side)
+}
+
+func gcd(x int32, y int32) int32 {
+	if x > y {
+		return gcd(y, x)
+	}
+	if x == 0 {
+		return y
+	}
+	return gcd(x, y%x)
 }
 
 func recursiveIsPrime(n int32) bool {
