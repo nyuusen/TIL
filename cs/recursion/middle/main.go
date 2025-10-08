@@ -67,13 +67,42 @@ func main() {
 
 	// fmt.Printf("return value: %d\n", splitAndAdd(234))
 
-	fmt.Printf("return value: %d\n", multipleOfTwoTotal(3))
-	fmt.Printf("return value: %d\n", multipleOfTwoTotal(2))
+	// fmt.Printf("return value: %d\n", multipleOfTwoTotal(3))
+	// fmt.Printf("return value: %d\n", multipleOfTwoTotal(2))
+
+	// fmt.Printf("return value: %d\n", fibonacciNumber(5))
+	// fmt.Printf("return value: %d\n", fibonacciNumber(8))
+	// fmt.Printf("return value: %d\n", fibonacciNumber(10))
+
+	fmt.Printf("return value: %d\n", numberOfWay(10))
+
+}
+
+func numberOfWay(x int32) int32 {
+	// xになるまでの組み合わせ
+	// numberOfWay(6)=numberOfWay(5)+numberOfWay(4)
+	// numberOfWay(n)=numberOfWay(n-1)+numberOfWay(n-2)
+	if x == 0 {
+		return 0
+	}
+	if x == 1 {
+		return 1
+	}
+	if x == 2 {
+		return 2
+	}
+	return numberOfWay(x-1) + numberOfWay(x-2)
 }
 
 func fibonacciNumber(n int32) int32 {
 	// フィボナッチ数列
-	return n
+	if n == 0 {
+		return 0
+	}
+	if n == 1 {
+		return 1
+	}
+	return fibonacciNumber(n-1) + fibonacciNumber(n-2)
 }
 
 func multipleOfTwoTotal(n int32) int32 {
