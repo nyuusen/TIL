@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -74,8 +75,58 @@ func main() {
 	// fmt.Printf("return value: %d\n", fibonacciNumber(8))
 	// fmt.Printf("return value: %d\n", fibonacciNumber(10))
 
-	fmt.Printf("return value: %d\n", numberOfWay(10))
+	// fmt.Printf("return value: %d\n", numberOfWay(10))
 
+	// fmt.Printf("return value: %d\n", towerOfHanoi(3))
+	// fmt.Printf("return value: %d\n", towerOfHanoi(5))
+
+	// fmt.Printf("return value: %d\n", divideBy3Count(10))
+
+	fmt.Printf("return value: %s\n", divisor(10))
+
+}
+
+func howLongToReachFundGoal(capitalMoney int32, goalMoney int32, interest int32) int32{
+    // 関数を完成させてください
+}
+
+func divisor(number int32) string {
+	var numbers []string
+	var n int32 = 1
+	for n <= number {
+		dh := divisorHelper(number, n)
+		if dh != 0 {
+			numbers = append(numbers, strconv.Itoa(int(n)))
+		}
+		n++
+	}
+	return strings.Join(numbers, "-")
+}
+
+func divisorHelper(original, number int32) int32 {
+	if number == 1 {
+		return 1
+	}
+	if original%number != 0 {
+		return 0
+	}
+	return number
+}
+
+func divideBy3Count(n int32) int32 {
+	if n < 3 {
+		return 0
+	}
+	return 1 + divideBy3Count(n/3)
+}
+
+func towerOfHanoi(discs int32) int32 {
+	// ハノイの塔
+	// f(3)=f(2-1)+1+f(2-1)
+	if discs == 1 {
+		return 1
+	}
+	return towerOfHanoi(discs-1) + 1 + towerOfHanoi(discs-1)
 }
 
 func numberOfWay(x int32) int32 {
