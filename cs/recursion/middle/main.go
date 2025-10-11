@@ -82,12 +82,41 @@ func main() {
 
 	// fmt.Printf("return value: %d\n", divideBy3Count(10))
 
-	fmt.Printf("return value: %s\n", divisor(10))
+	fmt.Printf("return value: %d\n", howLongToReachFundGoal(5421, 10421, 5))
+	fmt.Printf("return value: %d\n", howLongToReachFundGoal(600, 10400, 7))
+	fmt.Printf("return value: %d\n", howLongToReachFundGoal(32555, 5200000, 12))
+	fmt.Printf("return value: %d\n", howLongToReachFundGoal(650, 35000, 65))
 
 }
 
-func howLongToReachFundGoal(capitalMoney int32, goalMoney int32, interest int32) int32{
-    // 関数を完成させてください
+func howLongToReachFundGoal(capitalMoney int32, goalMoney int32, interest int32) int32 {
+	return howLongToReachFundGoalHelper(float64(capitalMoney), float64(goalMoney), float64(interest), 0)
+}
+
+// 再帰用の内部関数
+func howLongToReachFundGoalHelper(capital, goal, interest float64, year int32) int32 {
+	// ベースケース1: 80年以上かかる場合
+	if year >= 80 {
+		return 80
+	}
+
+	// ベースケース2: 資金が目標金額に達したら終了
+	if capital >= goal {
+		return year
+	}
+
+	// 土地価格の上昇（偶数年→2%、奇数年→3%）
+	if year%2 == 0 {
+		goal *= 1.02
+	} else {
+		goal *= 1.03
+	}
+
+	// 複利で資産増加
+	capital *= (1 + interest/100)
+
+	// 再帰呼び出し
+	return howLongToReachFundGoalHelper(capital, goal, interest, year+1)
 }
 
 func divisor(number int32) string {
