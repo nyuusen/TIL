@@ -84,39 +84,42 @@ func main() {
 
 	fmt.Printf("return value: %d\n", howLongToReachFundGoal(5421, 10421, 5))
 	fmt.Printf("return value: %d\n", howLongToReachFundGoal(600, 10400, 7))
-	fmt.Printf("return value: %d\n", howLongToReachFundGoal(32555, 5200000, 12))
-	fmt.Printf("return value: %d\n", howLongToReachFundGoal(650, 35000, 65))
+	fmt.Printf("return value: %d\n", howLongToReachFundGoal(32555,5200000,12))
+	fmt.Printf("return value: %d\n", howLongToReachFundGoal(650,35000,65))
 
 }
 
 func howLongToReachFundGoal(capitalMoney int32, goalMoney int32, interest int32) int32 {
-	return howLongToReachFundGoalHelper(float64(capitalMoney), float64(goalMoney), float64(interest), 0)
+	// 何年投資すれば土地が買えるか
+	// goalMoney:土地の現在価格、interest:投資対象の年利、capitalMoney:投資額
+	// 土地の価格は経過年数が偶数の場合は2%上昇,奇数の場合は3%上昇
+	// 投資額と土地の価格をそれぞれ計算する必要がある
+	// 投資額が土地の価格を上回れば良い
+	var year int32 = 1
+	return howLongToReachFundGoalHelper(float64(capitalMoney), float64(goalMoney), interest, year)
 }
 
-// 再帰用の内部関数
-func howLongToReachFundGoalHelper(capital, goal, interest float64, year int32) int32 {
-	// ベースケース1: 80年以上かかる場合
+func howLongToReachFundGoalHelper(capitalMoney float64, goalMoney float64, interest int32, year int32) int32 {
 	if year >= 80 {
 		return 80
 	}
 
-	// ベースケース2: 資金が目標金額に達したら終了
-	if capital >= goal {
+	if capitalMoney >= goalMoney {
 		return year
 	}
+	// 年利5％: 元金*1.05
+	cm := float64(capitalMoney) * (float64(interest)/100 + 1)
+	gm := calculateGoalMoney(goalMoney, year)
+	year += 1
+	return howLongToReachFundGoalHelper(cm, gm, interest, year)
 
-	// 土地価格の上昇（偶数年→2%、奇数年→3%）
+}
+
+func calculateGoalMoney(price float64, year int32) float64 {
 	if year%2 == 0 {
-		goal *= 1.02
-	} else {
-		goal *= 1.03
+		return float64(price) * 1.02
 	}
-
-	// 複利で資産増加
-	capital *= (1 + interest/100)
-
-	// 再帰呼び出し
-	return howLongToReachFundGoalHelper(capital, goal, interest, year+1)
+	return float64(price) * 1.03
 }
 
 func divisor(number int32) string {
