@@ -82,11 +82,33 @@ func main() {
 
 	// fmt.Printf("return value: %d\n", divideBy3Count(10))
 
-	fmt.Printf("return value: %d\n", howLongToReachFundGoal(5421, 10421, 5))
-	fmt.Printf("return value: %d\n", howLongToReachFundGoal(600, 10400, 7))
-	fmt.Printf("return value: %d\n", howLongToReachFundGoal(32555,5200000,12))
-	fmt.Printf("return value: %d\n", howLongToReachFundGoal(650,35000,65))
+	// fmt.Printf("return value: %d\n", howLongToReachFundGoal(5421, 10421, 5))
+	// fmt.Printf("return value: %d\n", howLongToReachFundGoal(600, 10400, 7))
+	// fmt.Printf("return value: %d\n", howLongToReachFundGoal(32555, 5200000, 12))
+	// fmt.Printf("return value: %d\n", howLongToReachFundGoal(650, 35000, 65))
 
+	fmt.Printf("return value: %t\n", recursiveIsPalindrome("apple"))
+	fmt.Printf("return value: %t\n", recursiveIsPalindrome("kayak"))
+	fmt.Printf("return value: %t\n", recursiveIsPalindrome("Top spot"))
+
+}
+
+func recursiveIsPalindrome(s string) bool {
+	// sが回文か
+	trimmed := strings.ToLower(strings.ReplaceAll(s, " ", ""))
+	return recursiveIsPalindromeHelper(trimmed, 0, len(trimmed)-1)
+}
+
+func recursiveIsPalindromeHelper(s string, left, right int) bool {
+	if left >= right {
+		return true
+	}
+
+	if s[left] != s[right] {
+		return false
+	}
+
+	return recursiveIsPalindromeHelper(s, left+1, right-1)
 }
 
 func howLongToReachFundGoal(capitalMoney int32, goalMoney int32, interest int32) int32 {
