@@ -87,10 +87,120 @@ func main() {
 	// fmt.Printf("return value: %d\n", howLongToReachFundGoal(32555, 5200000, 12))
 	// fmt.Printf("return value: %d\n", howLongToReachFundGoal(650, 35000, 65))
 
-	fmt.Printf("return value: %t\n", recursiveIsPalindrome("apple"))
-	fmt.Printf("return value: %t\n", recursiveIsPalindrome("kayak"))
-	fmt.Printf("return value: %t\n", recursiveIsPalindrome("Top spot"))
+	// fmt.Printf("return value: %t\n", recursiveIsPalindrome("apple"))
+	// fmt.Printf("return value: %t\n", recursiveIsPalindrome("kayak"))
+	// fmt.Printf("return value: %t\n", recursiveIsPalindrome("Top spot"))
 
+	// fmt.Printf("return value: %t\n", isPrime(1))
+	// fmt.Printf("return value: %t\n", isPrime(2))
+	// fmt.Printf("return value: %t\n", isPrime(25))
+	// fmt.Printf("return value: %t\n", isPrime(29))
+
+	// fmt.Printf("return value: %s\n", doYouFail("AAPPAP"))
+	// fmt.Printf("return value: %s\n", doYouFail("PAPPA"))
+
+	// fmt.Printf("return value: %s\n", notDivisibleNumbers(20, 3))
+
+	// fmt.Printf("return value: %s\n", fizzBuzz(16))
+
+	fmt.Printf("return value: %s\n", perfectNumberList(3))
+	fmt.Printf("return value: %s\n", perfectNumberList(6))
+	fmt.Printf("return value: %s\n", perfectNumberList(28))
+}
+
+func perfectNumberList(n int32) string {
+	// 完全数
+	result := ""
+	for i := 2; i <= int(n); i++ {
+		sum := perfectNumberListHelper(i, i-1)
+		if i == sum {
+			result += fmt.Sprintf("%d-", i)
+		}
+	}
+	if len(result) == 0 {
+		result = "none"
+	} else {
+		result = result[:len(result)-1]
+	}
+	return result
+}
+
+func perfectNumberListHelper(n1 int, n2 int) int {
+	// 自分自身以外の約数を全て足し合わせる再帰関数
+	if n2 == 0 {
+		return 0
+	}
+	if n1%n2 == 0 {
+		return n2 + perfectNumberListHelper(n1, n2-1)
+	}
+	return perfectNumberListHelper(n1, n2-1)
+}
+
+func fizzBuzz(n int32) string {
+	result := ""
+	for i := 1; i <= int(n); i++ {
+		switch {
+		case i%15 == 0:
+			result += "FizzBuzz-"
+		case i%3 == 0:
+			result += "Fizz-"
+		case i%5 == 0:
+			result += "Buzz-"
+		default:
+			result += fmt.Sprintf("%d-", i)
+		}
+	}
+	if len(result) > 0 {
+		result = result[:len(result)-1]
+	}
+	return result
+}
+
+func notDivisibleNumbers(x int32, y int32) string {
+	// 割り切れない
+	if x == 1 && y == 1 {
+		return ""
+	}
+	result := ""
+	for i := 1; i <= int(x); i++ {
+		if i%int(y) != 0 {
+			result += fmt.Sprintf("%d-", i)
+		}
+	}
+	if len(result) > 0 {
+		result = result[:len(result)-1]
+	}
+	return result
+}
+
+func doYouFail(s string) string {
+	// 出席管理
+	absenceCount := 0
+	for _, r := range s {
+		if string(r) == "A" {
+			absenceCount++
+		}
+	}
+	result := "pass"
+	if absenceCount >= 3 {
+		result = "fail"
+	}
+	return result
+}
+
+func isPrime(number int32) bool {
+	// 素数かどうかを返す
+	if number == 1 {
+		return false
+	}
+	isP := true
+	for i := 2; i < int(number); i++ {
+		if int(number)%i == 0 {
+			isP = false
+			break
+		}
+	}
+	return isP
 }
 
 func recursiveIsPalindrome(s string) bool {
