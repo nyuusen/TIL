@@ -103,9 +103,27 @@ func main() {
 
 	// fmt.Printf("return value: %s\n", fizzBuzz(16))
 
-	fmt.Printf("return value: %s\n", perfectNumberList(3))
-	fmt.Printf("return value: %s\n", perfectNumberList(6))
-	fmt.Printf("return value: %s\n", perfectNumberList(28))
+	// fmt.Printf("return value: %s\n", perfectNumberList(3))
+	// fmt.Printf("return value: %s\n", perfectNumberList(6))
+	// fmt.Printf("return value: %s\n", perfectNumberList(28))
+
+	fmt.Printf("return value: %t\n", isPalindromeInteger(1))
+	fmt.Printf("return value: %t\n", isPalindromeInteger(12321))
+	fmt.Printf("return value: %t\n", isPalindromeInteger(12322))
+}
+
+func isPalindromeInteger(n int32) bool {
+	// 回文かどうかを返す
+	s := strconv.Itoa(int(n))
+	if len(s) <= 1 {
+		return true
+	}
+	for i := 0; i <= len(s)-1; i++ {
+		if s[i] != s[len(s)-(i+1)] {
+			return false
+		}
+	}
+	return true
 }
 
 func perfectNumberList(n int32) string {
