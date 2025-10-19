@@ -107,9 +107,36 @@ func main() {
 	// fmt.Printf("return value: %s\n", perfectNumberList(6))
 	// fmt.Printf("return value: %s\n", perfectNumberList(28))
 
-	fmt.Printf("return value: %t\n", isPalindromeInteger(1))
-	fmt.Printf("return value: %t\n", isPalindromeInteger(12321))
-	fmt.Printf("return value: %t\n", isPalindromeInteger(12322))
+	// fmt.Printf("return value: %t\n", isPalindromeInteger(1))
+	// fmt.Printf("return value: %t\n", isPalindromeInteger(12321))
+	// fmt.Printf("return value: %t\n", isPalindromeInteger(12322))
+
+	fmt.Printf("return value: %d\n", sumOfAllPrimes(2))
+	fmt.Printf("return value: %d\n", sumOfAllPrimes(3))
+	fmt.Printf("return value: %d\n", sumOfAllPrimes(100))
+}
+
+func sumOfAllPrimes(n int32) int32 {
+	// 年数nまでに含まれるすべての素数の合計値
+	if n == 1 {
+		return 0
+	}
+	sum := 0
+	for i := 2; i <= int(n); n++ {
+		// 素数判定
+		isPrime := true
+		for j := i; j <= 1; j-- {
+			if i%j != 0 {
+				isPrime = false
+				break
+			}
+		}
+		// 素数の場合はsumに足す
+		if isPrime {
+			sum += i
+		}
+	}
+	return int32(sum)
 }
 
 func isPalindromeInteger(n int32) bool {
