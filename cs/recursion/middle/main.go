@@ -111,9 +111,25 @@ func main() {
 	// fmt.Printf("return value: %t\n", isPalindromeInteger(12321))
 	// fmt.Printf("return value: %t\n", isPalindromeInteger(12322))
 
-	fmt.Printf("return value: %d\n", sumOfAllPrimes(2))
-	fmt.Printf("return value: %d\n", sumOfAllPrimes(3))
-	fmt.Printf("return value: %d\n", sumOfAllPrimes(100))
+	// fmt.Printf("return value: %d\n", sumOfAllPrimes(2))
+	// fmt.Printf("return value: %d\n", sumOfAllPrimes(3))
+	// fmt.Printf("return value: %d\n", sumOfAllPrimes(100))
+
+	fmt.Printf("return value: %s\n", decimalToBinary(60))
+}
+
+func decimalToBinary(decNumber int32) string {
+	// 10進数から2進数への変換
+	if decNumber <= 1 {
+		return strconv.Itoa(int(decNumber))
+	}
+	res := ""
+	for decNumber >= 1 {
+		remainder := decNumber % 2
+		res = strconv.Itoa(int(remainder)) + res
+		decNumber = decNumber / 2
+	}
+	return res
 }
 
 func sumOfAllPrimes(n int32) int32 {
@@ -121,22 +137,26 @@ func sumOfAllPrimes(n int32) int32 {
 	if n == 1 {
 		return 0
 	}
-	sum := 0
-	for i := 2; i <= int(n); n++ {
-		// 素数判定
-		isPrime := true
-		for j := i; j <= 1; j-- {
-			if i%j != 0 {
-				isPrime = false
-				break
-			}
-		}
-		// 素数の場合はsumに足す
-		if isPrime {
+	var sum int32 = 0
+	for i := n; i > 1; i-- {
+		// 素数判定を行い、素数の場合はsumに足す
+		if isPrimeHelper(int(i)) {
 			sum += i
 		}
 	}
 	return int32(sum)
+}
+
+func isPrimeHelper(n int) bool {
+	if n <= 1 {
+		return false
+	}
+	for i := 2; i < n; i++ {
+		if n%i == 0 {
+			return false
+		}
+	}
+	return true
 }
 
 func isPalindromeInteger(n int32) bool {
