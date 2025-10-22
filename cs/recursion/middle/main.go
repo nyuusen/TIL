@@ -115,7 +115,29 @@ func main() {
 	// fmt.Printf("return value: %d\n", sumOfAllPrimes(3))
 	// fmt.Printf("return value: %d\n", sumOfAllPrimes(100))
 
-	fmt.Printf("return value: %s\n", decimalToBinary(60))
+	// fmt.Printf("return value: %s\n", decimalToBinary(60))
+
+	fmt.Printf("return value: %s\n", decimalToHexadecimal(532454))
+}
+
+func decimalToHexadecimal(decNumber int32) string {
+	// 10進数から16進数への変換
+	// 1.2進数
+	b := decimalToBinary(decNumber)
+	// 2.2進数を4桁区切りに抽出(0100,1000)し、16進数に変換
+	var bs []string
+	for i := 0; i < len(b); i += 4 {
+		end := i + 4
+		if len(b[i:]) < 4 {
+			end = i + len(b[i:])
+		}
+		// 2進数文字列を整数に変換
+		n, _ := strconv.ParseInt(b[i:end], 2, 64)
+		// 16進数に変換
+		hex := strconv.FormatInt(n, 16)
+		bs = append(bs, hex)
+	}
+	return strings.ToUpper(strings.Join(bs, ""))
 }
 
 func decimalToBinary(decNumber int32) string {
