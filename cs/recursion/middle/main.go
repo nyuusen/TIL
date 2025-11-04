@@ -117,7 +117,18 @@ func main() {
 
 	// fmt.Printf("return value: %s\n", decimalToBinary(60))
 
-	fmt.Printf("return value: %s\n", decimalToHexadecimal(532454))
+	fmt.Printf("return value: %d\n", addEveryOtherElement([]int32{34, 46, 45, 57}))
+}
+
+func addEveryOtherElement(intArr []int32) int32 {
+	// 奇数番目を合計
+	var sum int32
+	for i := range intArr {
+		if (i+1)%2 != 0 {
+			sum += intArr[i]
+		}
+	}
+	return sum
 }
 
 func decimalToHexadecimal(decNumber int32) string {
