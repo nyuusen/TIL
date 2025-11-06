@@ -117,7 +117,52 @@ func main() {
 
 	// fmt.Printf("return value: %s\n", decimalToBinary(60))
 
-	fmt.Printf("return value: %d\n", addEveryOtherElement([]int32{34, 46, 45, 57}))
+	// fmt.Printf("return value: %d\n", addEveryOtherElement([]int32{34, 46, 45, 57}))
+
+	// fmt.Printf("return value: %d\n", maxAscilString([]string{"Fantastic", "Bridge", "Superior", "Fantastic", "Operator"}))
+	// fmt.Printf("return value: %d\n", maxAscilString([]string{"HeLlo", "HelLo", "bridge"}))
+
+	fmt.Printf("return value: %v\n", rotateByTimes([]int32{1, 2, 3, 4, 5}, 2))
+	fmt.Printf("return value: %v\n", rotateByTimes([]int32{4, 23, 104, 435, 5002, 3}, 26))
+}
+
+func rotateByTimes(ids []int32, n int32) []int32 {
+	// 部屋替え
+	times := n
+	if int32(len(ids)) <= n {
+		times = n % int32(len(ids))
+	}
+	if times == 0 {
+		return ids
+	}
+	res := make([]int32, len(ids))
+	for i, v := range ids {
+		idx := i + int(times)
+		// インデックスがlenより大きい場合は折り返す(余りを代入)
+		// 例: len5でidxが6の場合は、6%5の1を返す
+		if idx >= len(ids) {
+			idx = idx % len(ids)
+		}
+		res[idx] = v
+	}
+	return res
+}
+
+func maxAscilString(stringList []string) int32 {
+	// 最大のASCII文字コードの配列インデックスを返す
+	var max int32
+	var index int
+	for i := range stringList {
+		var sum int32
+		for _, v2 := range stringList[i] {
+			sum += v2
+		}
+		if sum > max {
+			max = sum
+			index = i
+		}
+	}
+	return int32(index)
 }
 
 func addEveryOtherElement(intArr []int32) int32 {
