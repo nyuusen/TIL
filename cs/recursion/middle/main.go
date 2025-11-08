@@ -122,8 +122,36 @@ func main() {
 	// fmt.Printf("return value: %d\n", maxAscilString([]string{"Fantastic", "Bridge", "Superior", "Fantastic", "Operator"}))
 	// fmt.Printf("return value: %d\n", maxAscilString([]string{"HeLlo", "HelLo", "bridge"}))
 
-	fmt.Printf("return value: %v\n", rotateByTimes([]int32{1, 2, 3, 4, 5}, 2))
-	fmt.Printf("return value: %v\n", rotateByTimes([]int32{4, 23, 104, 435, 5002, 3}, 26))
+	// fmt.Printf("return value: %v\n", rotateByTimes([]int32{1, 2, 3, 4, 5}, 2))
+	// fmt.Printf("return value: %v\n", rotateByTimes([]int32{4, 23, 104, 435, 5002, 3}, 26))
+
+	fmt.Printf("return value: %t\n", isPangram("we promptly judged antique ivory buckles for the next prize"))
+	fmt.Printf("return value: %t\n", isPangram("sheep for a unique zebra when quick red vixens jump over the yacht"))
+}
+
+func isPangram(s string) bool {
+	// sが全てのアルファベットを含んでいるかどうか
+	m := make(map[string]bool, 26)
+	for _, v := range s {
+		lowerStr := strings.ToLower(string(v))
+		if lowerStr == " " || m[lowerStr] {
+			continue
+		}
+		m[lowerStr] = true
+	}
+	return isPangramHelper(m)
+}
+
+func isPangramHelper(m map[string]bool) bool {
+	if len(m) < 26 {
+		return false
+	}
+	for _, v := range m {
+		if !v {
+			return false
+		}
+	}
+	return true
 }
 
 func rotateByTimes(ids []int32, n int32) []int32 {
