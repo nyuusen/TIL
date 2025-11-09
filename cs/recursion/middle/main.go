@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -125,8 +126,79 @@ func main() {
 	// fmt.Printf("return value: %v\n", rotateByTimes([]int32{1, 2, 3, 4, 5}, 2))
 	// fmt.Printf("return value: %v\n", rotateByTimes([]int32{4, 23, 104, 435, 5002, 3}, 26))
 
-	fmt.Printf("return value: %t\n", isPangram("we promptly judged antique ivory buckles for the next prize"))
-	fmt.Printf("return value: %t\n", isPangram("sheep for a unique zebra when quick red vixens jump over the yacht"))
+	// fmt.Printf("return value: %t\n", isPangram("we promptly judged antique ivory buckles for the next prize"))
+	// fmt.Printf("return value: %t\n", isPangram("sheep for a unique zebra when quick red vixens jump over the yacht"))
+
+	// fmt.Printf("return value: %v\n", missingItems([]int32{1, 2, 3, 4, 5, 6, 7, 8}, []int32{1, 3, 5}))
+
+	// fmt.Printf("return value: %v\n", intersectionOfArraysRepeats([]int32{3, 2, 1}, []int32{3, 2, 1}))
+	// fmt.Printf("return value: %v\n", intersectionOfArraysRepeats([]int32{3, 2, 2, 2, 1, 10, 10}, []int32{3, 2, 10, 10, 10}))
+
+	fmt.Printf("return value: %t\n", hasSameType("aabb", "yyza"))
+	fmt.Printf("return value: %t\n", hasSameType("aaabbccdddaa", "jjjddkkpppjj"))
+}
+
+func hasSameType(user1 string, user2 string) bool {
+	// 2人の名前が同じパターンで並んでいるか
+	if len(user1) != len(user2) {
+		return false
+	}
+	for i := 0; i <= len(user1)-2; i++ {
+		isSame := user1[i] == user1[i+1]
+		if isSame == (user2[i] == user2[i+1]) {
+			continue
+		}
+		return false
+	}
+	return true
+}
+
+func intersectionOfArraysRepeats(intList1 []int32, intList2 []int32) []int32 {
+	// 配列の重複をカウントする
+	m := make(map[int32]int)
+	for _, v := range intList1 {
+		if _, ok := m[v]; ok {
+			m[v] = m[v] + 1
+			continue
+		}
+		m[v] = 1
+	}
+
+	var res []int32
+	for _, v := range intList2 {
+		if _, ok := m[v]; ok {
+			if m[v] > 0 {
+				res = append(res, v)
+				m[v] = m[v] - 1
+			}
+		}
+	}
+
+	sort.Slice(res, func(i, j int) bool { return res[i] < res[j] })
+	return res
+}
+
+func missingItems(listA []int32, listB []int32) []int32 {
+	// listAにあって、listBにない商品を返す
+	m := make(map[string]int32, len(listB))
+	for _, v := range listB {
+		m[strconv.Itoa(int(v))] = v
+	}
+
+	fmt.Printf("map:%v\n", m)
+
+	var res []int32
+	for _, v := range listA {
+		fmt.Printf("v:%d\n", v)
+		if _, ok := m[strconv.Itoa(int(v))]; !ok {
+			res = append(res, v)
+		}
+	}
+
+	if len(res) == 0 {
+		return listA
+	}
+	return res
 }
 
 func isPangram(s string) bool {
