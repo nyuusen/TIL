@@ -136,6 +136,7 @@ func main() {
 
 	fmt.Printf("return value: %t\n", hasSameType("aabb", "yyza"))
 	fmt.Printf("return value: %t\n", hasSameType("aaabbccdddaa", "jjjddkkpppjj"))
+	fmt.Printf("return value: %t\n", hasSameType("bbttb", "aappl"))
 }
 
 func hasSameType(user1 string, user2 string) bool {
@@ -143,13 +144,32 @@ func hasSameType(user1 string, user2 string) bool {
 	if len(user1) != len(user2) {
 		return false
 	}
-	for i := 0; i <= len(user1)-2; i++ {
-		isSame := user1[i] == user1[i+1]
-		if isSame == (user2[i] == user2[i+1]) {
-			continue
+
+	m1 := make(map[byte]byte) // user1[i] -> user2[i]
+	m2 := make(map[byte]byte) // user2[i] -> user1[i]（逆方向チェック用）
+
+	for i := 0; i < len(user1); i++ {
+		c1, c2 := user1[i], user2[i]
+
+		// 片方向のマッピングに矛盾がないか確認
+		if v, ok := m1[c1]; ok {
+			if v != c2 {
+				return false
+			}
+		} else {
+			m1[c1] = c2
 		}
-		return false
+
+		// 逆方向のマッピングも矛盾がないか確認
+		if v, ok := m2[c2]; ok {
+			if v != c1 {
+				return false
+			}
+		} else {
+			m2[c2] = c1
+		}
 	}
+
 	return true
 }
 
