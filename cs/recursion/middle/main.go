@@ -139,6 +139,62 @@ func main() {
 	fmt.Printf("return value: %t\n", hasSameType("bbttb", "aappl"))
 }
 
+const (
+	player1 = "player1"
+	player2 = "player2"
+)
+
+func winnerPairOfCards(p1 []string, p2 []string) string {
+	// それぞれのプレイヤーが持つカードをMapにする
+	p1Key, p1Val := calcMaxKeyValue(cardsToMap(p1))
+	p2Key, p2Val := calcMaxKeyValue(cardsToMap(p2))
+
+	// 値(枚数)が大きい方が勝ち
+	if p1Val != p2Val {
+		if p1Val > p2Val {
+			return player1
+		}
+		return player2
+	}
+
+	// 値が同じ場合は、そのキーとなるカード番号が大きい方が勝ち
+	if p1Key != p2Key {
+			if p1Key != p2Key {
+		if p1Key > p2Key {
+			return player1
+		}
+		return player2
+	}
+
+	// それぞれの最大値を比較して、大きい方が勝ち
+}
+
+func calcMaxKeyValue(m map[int]int) (key, value int) {
+	var maxKey int
+	var maxVal int
+	for k, v := range m {
+		if v > maxVal {
+			maxVal = v
+			maxKey = k
+		}
+	}
+	return maxKey, maxVal
+}
+
+func cardsToMap(s []string) map[int]int {
+	var m map[int]int
+	for i := 0; i < len(s); i++ {
+		s := strings.SplitN(s[i], "", 2)
+		num, _ := strconv.Atoi(s[1])
+		if _, ok := m[num]; ok {
+			m[num] = m[num] + 1
+		} else {
+			m[num] = 1
+		}
+	}
+	return m
+}
+
 func hasSameType(user1 string, user2 string) bool {
 	// 2人の名前が同じパターンで並んでいるか
 	if len(user1) != len(user2) {
