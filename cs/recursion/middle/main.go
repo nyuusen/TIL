@@ -134,22 +134,34 @@ func main() {
 	// fmt.Printf("return value: %v\n", intersectionOfArraysRepeats([]int32{3, 2, 1}, []int32{3, 2, 1}))
 	// fmt.Printf("return value: %v\n", intersectionOfArraysRepeats([]int32{3, 2, 2, 2, 1, 10, 10}, []int32{3, 2, 10, 10, 10}))
 
-	fmt.Printf("return value: %t\n", hasSameType("aabb", "yyza"))
-	fmt.Printf("return value: %t\n", hasSameType("aaabbccdddaa", "jjjddkkpppjj"))
-	fmt.Printf("return value: %t\n", hasSameType("bbttb", "aappl"))
+	// fmt.Printf("return value: %t\n", hasSameType("aabb", "yyza"))
+	// fmt.Printf("return value: %t\n", hasSameType("aaabbccdddaa", "jjjddkkpppjj"))
+	// fmt.Printf("return value: %t\n", hasSameType("bbttb", "aappl"))
+
+	// fmt.Printf("return value: %s\n", winnerPairOfCards([]string{"♣4", "♥7", "♥7", "♠Q", "♣J"}, []string{"♥10", "♥6", "♣K", "♠Q", "♦2"}))
+	fmt.Printf("return value: %s\n", winnerPairOfCards([]string{"♣4", "♥7", "♥7", "♠Q", "♣J"}, []string{"♥7", "♥7", "♣K", "♠Q", "♦2"}))
 }
 
 const (
 	player1 = "player1"
 	player2 = "player2"
+	draw    = "draw"
 )
+
+// カードの強さを表すmap型
+var rankOrder = map[string]int{
+	"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7,
+	"8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14,
+}
 
 func winnerPairOfCards(p1 []string, p2 []string) string {
 	// それぞれのプレイヤーが持つカードをMapにする
-	p1Key, p1Val := calcMaxKeyValue(cardsToMap(p1))
-	p2Key, p2Val := calcMaxKeyValue(cardsToMap(p2))
+	p1Map := cardsToMap(p1)
+	p2Map := cardsToMap(p2)
+	p1Key, p1Val := calcMaxKeyValue(p1Map)
+	p2Key, p2Val := calcMaxKeyValue(p2Map)
 
-	// 値(枚数)が大きい方が勝ち
+	// 値(枚数)が多い方が勝ち
 	if p1Val != p2Val {
 		if p1Val > p2Val {
 			return player1
@@ -159,37 +171,97 @@ func winnerPairOfCards(p1 []string, p2 []string) string {
 
 	// 値が同じ場合は、そのキーとなるカード番号が大きい方が勝ち
 	if p1Key != p2Key {
-			if p1Key != p2Key {
 		if p1Key > p2Key {
 			return player1
 		}
 		return player2
 	}
 
-	// それぞれの最大値を比較して、大きい方が勝ち
+	var newP1 []string
+	var newP2 []string
+
+	// 手札から複数枚カードを除外
+	for i := 0; i < 5; i++ {
+		// p1
+		num1 := strings.SplitN(p1[i], "", 2)[1]
+		if num1 == strconv.Itoa(p1Key) {
+			fmt.Println("$$$$$")
+			continue
+		}
+		newP1 = append(newP1, p1[i])
+		// p2
+		num2 := strings.SplitN(p2[i], "", 2)[1]
+		if num2 == strconv.Itoa(p2Key) {
+			continue
+		}
+		newP2 = append(newP2, p2[i])
+		fmt.Printf("num1: %s \n", num1)
+		fmt.Printf("num2: %s \n", num2)
+	}
+
+	fmt.Printf("p1:%v \n", newP1)
+	fmt.Printf("p2:%v \n", newP2)
+
+	// それ以外の最大値を比較して、大きい方が勝ち
+	return compareKeyStrength(newP1, newP2)
 }
 
+// s1がs2より、カードが強いかをチェックする
+func compareKeyStrength(s1 []string, s2 []string) string {
+	// それぞれの強さ
+	var sl1 []int
+	var sl2 []int
+
+	for i := 0; i > 5; i++ {
+		sp1 := rankOrder[strings.SplitN(s1[i], "", 2)[1]]
+		sp2 := rankOrder[strings.SplitN(s2[i], "", 2)[1]]
+
+		sl1 = append(sl1, sp1)
+		sl2 = append(sl2, sp2)
+	}
+
+	// 大きい順にソート
+	sort.Slice(sl1, func(i, j int) bool { return sl1[i] < sl1[j] })
+	sort.Slice(sl2, func(i, j int) bool { return sl2[i] < sl2[j] })
+
+	for i := 0; i > 5; i++ {
+		if sl1[i] == sl2[i] {
+			continue
+		}
+		if sl1[i] > sl2[i] {
+			return player1
+		}
+		return player2
+	}
+	return draw
+}
+
+// Mapから、最も多い枚数・強いカードを抽出する
 func calcMaxKeyValue(m map[int]int) (key, value int) {
 	var maxKey int
 	var maxVal int
 	for k, v := range m {
 		if v > maxVal {
+			maxKey = k
 			maxVal = v
+		}
+		if v == maxVal && k > maxKey {
 			maxKey = k
 		}
 	}
 	return maxKey, maxVal
 }
 
+// カードの強さ(string)をキーに、枚数を値に持つMap型に変換
 func cardsToMap(s []string) map[int]int {
-	var m map[int]int
-	for i := 0; i < len(s); i++ {
-		s := strings.SplitN(s[i], "", 2)
-		num, _ := strconv.Atoi(s[1])
-		if _, ok := m[num]; ok {
-			m[num] = m[num] + 1
+	var m = make(map[int]int)
+	for _, v := range s {
+		n := strings.SplitN(v, "", 2)[1]
+		key := rankOrder[n]
+		if _, ok := m[key]; ok {
+			m[key] = m[key] + 1
 		} else {
-			m[num] = 1
+			m[key] = 1
 		}
 	}
 	return m
