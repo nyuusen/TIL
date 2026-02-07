@@ -13,12 +13,12 @@
 
 - context.WithValueを呼び出すと、古いContextをラップした新しい構造体がスタック or ヒープに生成され、連結リストのような構造で遡れるようになっている
 - context.WithValueを呼び出すと、内部ではvalueCtxという構造体インスタンスが生成される
-    ```
-      type valueCtx struct {
-          Context                 // 親Contextへの参照（埋め込み）
-          key, val any            // 保存したいキーと値
-      }
-    ```
+  ```
+  type valueCtx struct {
+      Context                 // 親Contextへの参照（埋め込み）
+      key, val any            // 保存したいキーと値
+  }
+  ```
 - ctx.Value(key)を実行してkeyを探すときは、現在のctx(valueCtx)からkeyが一致するかを比較し、一致しない場合は親ノードを辿っていく
 - 計算量は、O(n)となる（値が埋め込まれた回数をnとする）
   - 単方向連結リストを逆方向に辿るので、何でもかんでもContextに取り出すと値の取り出し＝ルックアップの性能が線形に悪化する

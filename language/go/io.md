@@ -4,9 +4,9 @@
 
 - File構造体は以下のようになっている
   ```
-    type File struct {
-  	  *file // os specific
-    }
+  type File struct {
+   *file // os specific
+  }
   ```
 - これはGoでよくみられる埋め込み（Embedding）というテクニックで継承に近い
 - 利用者側からは抽象化されたメソッド（例：Write）で呼び出すことができ、その内部の処理は非公開型に隠蔽されている
@@ -44,7 +44,6 @@
     - bufio.Reader: 1回目のシステムコールで背後にbuf（メモリ上の倉庫）に置いておく
 - Scannerメソッド
   - トークン（単語や行など）ごとに読み取りが可能（Readは指定したバイト列の長さごと）
-
 
 ## io vs bufio
 
