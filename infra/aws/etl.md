@@ -2,43 +2,49 @@
 
 ## ETLとは？
 
+- バラバラな場所にあるデータを使いやすい形に整えて、一箇所に集めるための**「データの引越し・大掃除」**プロセス
+
 ## 構成
 
 ```mermaid
-sequenceDiagram
-    autonumber
-    participant Client as 管理画面 (フロント)
-    participant GoAPI as Go API / Batch
-    participant S3_Ext as 対向先 S3
-    participant S3_Own as 自アカウント S3
-    participant Glue as Glue ETL
-    participant S3T as S3 Tables
-    participant SFn as Step Functions
-    participant Lambda as Lambda (Athena)
+graph TD
+    subgraph "Data Source"
+        Raw[S3 Bucket<br/>CSV / JSON]
+    end
 
-    Note over GoAPI, S3_Ext: 【日次バッチフロー】
-    GoAPI->>S3_Ext: CSV取得
-    S3_Ext-->>GoAPI: 
-    GoAPI->>S3_Own: CSV配置 (Raw Data)
+    subgraph "AWS Glue (ETL Process)"
+        Extract[<b>Extract</b><br/>Read Raw Data]
+        Transform[<b>Transform</b><br/>Spark Processing<br/>Cleaning / Type Conversion]
+        Load[<b>Load</b><br/>Write to Iceberg Format]
+    end
+
+    subgraph "S3 Tables (Storage & Management)"
+        direction TB
+        subgraph S3T [S3 Tables Bucket]
+            Metadata[<b>Iceberg Metadata</b><br/>Snapshot / Schema Info]
+            DataFiles[<b>Parquet Files</b><br/>Columnar Data]
+        end
+    end
+
+    subgraph "Analysis Layer"
+        Athena[Amazon Athena]
+        SQL[SQL Query]
+    end
+
+    %% Data Flow
+    Raw --> Extract
+    Extract --> Transform
+    Transform --> Load
+    Load --> DataFiles
     
-    Note over Glue, S3T: 【日次ETLフロー】
-    Glue->>S3_Own: CSV読み込み
-    Glue->>S3T: データ投入 (Iceberg/Table format)
-
-    Note over Client, S3_Own: 【抽出・ダウンロードフロー】
-    Client->>SFn: 抽出ボタン押下 (Trigger)
-    activate SFn
-    SFn->>Lambda: 実行
-    Lambda->>S3T: Athenaクエリ発行
-    S3T-->>Lambda: クエリ結果
-    Lambda->>S3_Own: 結果をZIP化して配置
-    Lambda-->>SFn: 完了
-    deactivate SFn
-
-    Client->>GoAPI: ダウンロードボタン押下
-    GoAPI->>S3_Own: ZIP取得
-    S3_Own-->>GoAPI: 
-    GoAPI-->>Client: ZIPファイルを返却
+    %% Metadata Flow
+    Load -.->|Update| Metadata
+    Metadata -.->|Manage| DataFiles
+    
+    %% Query Flow
+    SQL --> Athena
+    Athena -->|Read Schema| Metadata
+    Athena -->|Scan Optimized Data| DataFiles
 ```
 
 ## 主要サービス
