@@ -161,5 +161,6 @@
       - SkipListという構造で、データが常にソートされた状態
     - SST(Sorted String Table)ファイル: MemTableがいっぱいになると一気にディスクに書き出す
       - 増えてくると裏側でコンパクション処理が走り、古いデータや削除フラグが立ったデータを掃除していく
+    - →これらLSM-Tree（Log-Structured Merge-Tree）というアーキテクチャである
 
 
