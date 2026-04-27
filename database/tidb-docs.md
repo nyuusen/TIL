@@ -99,4 +99,32 @@ https://docs.pingcap.com/ja/tidbcloud/security-concepts/
     - DB側で証明書を発行し、CA証明書をアプリケーションに設定し、DBへの接続時にDBの証明書が本物かどうかを検証
     - その後、アプリケーション側は一時的な暗号鍵を作成＆DBの公開鍵で暗号化したデータ送信→DB側で復号
 
-https://docs.pingcap.com/ja/tidbcloud/select-cluster-tier/
+## クラスタを計画する
+
+### TiDBノード
+
+**※TiKVノードも同様だった**
+
+> **4 vCPU、16 GiB**の TiDB は、学習、テスト、およびトライアル用途向けに設計されています。
+>
+> TiDB の vCPU と RAM サイズが**4 vCPU、16 GiB**に設定されている場合、次の制限に注意してください。
+>
+> - TiDB のノード数は 1 または 2 にのみ設定でき、TiKV のノード数は 3 に固定されています。
+> - 4 vCPU TiDB は 4 vCPU TiKV でのみ使用できます。
+
+- 8 vCPU、16 GiB or 16 vCPU、32 GiB あたりが良いのか？
+  - サイジング基準がわからん
+    - →https://docs.pingcap.com/ja/tidbcloud/tidb-cloud-performance-reference/
+    - ベーシックなサイズを選定して負荷かけながら
+
+> 一般的に、TiDBのパフォーマンスはTiDBノード数に比例して増加します。
+
+## TiDBへの接続(プライベートエンドポイント)
+
+https://docs.pingcap.com/ja/tidbcloud/set-up-private-endpoint-connections/
+
+- 自VPC側にプライベートエンドポイントを作成し、TiDB側にNLBが配置され、NLBからTiDBクラスタに接続される構成
+  - 安全かつプライベートで、データがパブリックインターネットに公開されることはない
+  - プライベートエンドポイント＝NLB（とその先にあるTiDBクラスタへの接続設定など）という解釈で良さそう
+  - プライベートエンドポイントとTiDBクラスタは同一リージョンにある必要がある
+  - 
