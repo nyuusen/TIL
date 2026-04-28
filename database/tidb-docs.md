@@ -127,4 +127,12 @@ https://docs.pingcap.com/ja/tidbcloud/set-up-private-endpoint-connections/
   - 安全かつプライベートで、データがパブリックインターネットに公開されることはない
   - プライベートエンドポイント＝NLB（とその先にあるTiDBクラスタへの接続設定など）という解釈で良さそう
   - プライベートエンドポイントとTiDBクラスタは同一リージョンにある必要がある
-  - 
+
+## クラスターの停止
+
+- 一時停止すると、監視収集とコンピュートリソースのコストがかからなくなる
+- 最大停止期間は7日間で、7日経過後は自動的に再開される
+
+## メンテナンスウィンドウ
+
+https://docs.pingcap.com/ja/tidbcloud/configure-maintenance-window/
