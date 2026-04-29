@@ -136,3 +136,16 @@ https://docs.pingcap.com/ja/tidbcloud/set-up-private-endpoint-connections/
 ## メンテナンスウィンドウ
 
 https://docs.pingcap.com/ja/tidbcloud/configure-maintenance-window/
+
+## パフォーマンスの分析とチューニングの概要
+
+https://docs.pingcap.com/ja/tidbcloud/tidb-cloud-tune-performance-overview/
+
+まずは問題の原因がTiDBクラスタ内か外かを判断する
+
+> 「概要」タブでレイテンシ(P80)を確認します。この値がユーザー応答時間のP80値よりも大幅に低い場合、主なボトルネックはTiDBクラスター外にある可能性があると判断できます。
+
+- TiDBクラスタ内のボトルネック
+  - 遅いSQLクエリを最適化します。
+  - ホットスポットの問題を解決します。
+  - 容量を拡張するには、クラスターをスケールアウトします。
