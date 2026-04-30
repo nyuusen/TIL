@@ -149,3 +149,32 @@ https://docs.pingcap.com/ja/tidbcloud/tidb-cloud-tune-performance-overview/
   - 遅いSQLクエリを最適化します。
   - ホットスポットの問題を解決します。
   - 容量を拡張するには、クラスターをスケールアウトします。
+
+## SQLチューニング
+
+https://docs.pingcap.com/ja/tidbcloud/tidb-cloud-sql-tuning-overview/
+
+- 重要なのは
+  - 検索範囲を絞る
+  - インデックスを貼る
+  - 適切な結合アルゴリズムの選択（通常は自動で）
+- TiDBコンソールの診断ページでプランが見れる
+
+### 性能チューニングのベストプラクティス
+
+https://docs.pingcap.com/ja/developer/dev-guide-optimize-sql-best-practices/#dml-best-practices
+
+#### DML
+
+- 複数行のステートメントを利用する（Bulk Insertなど）
+  - ネットワークレイテンシやSQLパース回数・Redoログなどの発行回数が低減されるため
+- 複数回実行するステートメントはPREPAREを利用する
+  - SQL構文を解析することによるオーバーヘッドを低減
+- 必要な列のみを選択する
+  - ネットワークやディスクI/Oが余計にかかる
+    - 特にBLOB型やTEXT型などが入っていると
+  - インデックスを貼っている列だけであればカバリングインデックスが効く
+- 一括削除・更新を利用する
+  - 長時間排他ロックがかかる
+  - トランザクションログが大量に発生する
+  - LIMIT1000をつけるなどして更新・削除を繰り返し行うようにする
