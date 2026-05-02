@@ -20,20 +20,20 @@
 - 該当テーブルのカラムの詳細情報
 
 ```
-show columns from [table_name];
+SHOW COLUMNS FROM [table_name];
 ```
 
 - 該当テーブルのカラムのより詳細な情報(コメントとか\
   \Gをつけることで行表示になり見やすくなる
 
 ```
-select * from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='[table_name]'\G
+SELECT * FROM information_schema.columns WHERE TABLE_NAME='[table_name]'\G
 ```
 
 - テーブルの情報からCREATE文を生成する
 
 ```
-show create table [table_name];
+SHOW CREATE TABLE [table_name];
 ```
 
 ### DDL
