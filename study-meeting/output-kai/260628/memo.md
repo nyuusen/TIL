@@ -1,6 +1,18 @@
-# Laravel -> Next.js/Goリプレイス
+## tanaka-san
 
-## 概要
+- 並列で動かしているCCのダッシュボードを開発
+- grill-me
+
+## koike-san
+
+- 専門学校でゼミの講師
+  - 前提と期待値を合わせることの難しさ
+
+## me
+
+Laravel -> Next.js/Goリプレイス
+
+### 概要
 
 - DB移行
   - RDS Aurora & DynamoDB -> TiDB
@@ -8,7 +20,7 @@
   - Laravel -> Next.js/Go
 - DB移行を先に行い、その後Webアプリケーション移行を行う
 
-## ハマりポイント
+### ハマりポイント
 
 - Laravel単体で動かしていたものをFE側とBE側とで分けるか
   - Laravelでは、MVCでDB処理〜画面生成まで
