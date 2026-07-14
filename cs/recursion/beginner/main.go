@@ -53,18 +53,15 @@ func howMuchIsYourDebt(year int32) int32 {
 }
 
 func isRationalNumber(number int32) bool {
-
 	res := math.Sqrt(float64(number))
 	return res == float64(int32(res))
 }
 
 func toLowerCase(stringInput string) string {
-
 	return strings.ToLower(stringInput)
 }
 
 func insertUnderscoreAt(s string, i int32) string {
-
 	if len(s)-1 < int(i) {
 		return s
 	}
@@ -72,7 +69,6 @@ func insertUnderscoreAt(s string, i int32) string {
 }
 
 func lastFourHint(stringInput string) string {
-
 	length := len(stringInput)
 	if length < 6 {
 		return "There is no Hint"
@@ -82,7 +78,6 @@ func lastFourHint(stringInput string) string {
 }
 
 func isValidEmail(email string) bool {
-
 	if strings.HasPrefix(email, "@") {
 		return false
 	}
