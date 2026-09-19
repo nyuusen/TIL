@@ -1,0 +1,51 @@
+## TiDBで発生したエラーの調査
+
+- 事象
+  - TiKV timeout errorが発生
+  - ログに、`skip prepared plan-cache: too many values in in-list` というWARNINGが表示されていた
+    - この判定は「実行計画キャッシュがスキップ」されたというもの
+- 発行したクエリ
+  - パーティション化テーブルに対するSELECTクエリのWHERE IN句にパラメータ数が10,001
+- 原因
+  - タイムアウトエラー
+    - クエリのINにセットしているパラメータ数が1万を超えていたため、クエリ実行に長い時間がかかった
+    - 対象がパーティションテーブルだったことも実行時間が伸びた原因かも
+  - プランキャッシュのスキップ
+    - WARNING的にはINに指定しているパラメータ数が200を超えるとキャッシュスキップされる
+      - https://docs.pingcap.com/ja/tidb/stable/optimizer-fix-controls/#44823-new-in-v730
+- 関連する設定値
+  - tidb_opt_fix_control
+    - https://docs.pingcap.com/ja/tidb/stable/optimizer-fix-controls/#44823-new-in-v730
+    - プランキャッシュするしないのパラメータ数の閾値
+    - デフォルト200
+  - tidb_plan_cache_max_plan_size
+    - プリペアドステートメントのキャッシュできるプランの最大サイズ
+    - デフォルト2MiB
+- 今回の原因
+  - パラメータ数が多すぎてクエリが重い
+  - 対象テーブルがパーティション化されていない
+- プリペアドステートメント
+  - キャッシュ単位
+    - セッションごと
+  - それぞれのステップで行われること
+    - Prepare
+      - SQL構文解析し、ASTを構築
+      - ステートメントの登録
+        - 解析済みASTとステートメント名を紐づけてセッションメモリに保持
+        - この時点では具体値（パラメータ）が未確定のため、実行計画の作成やキャッシュ保存は行われない
+    - Execute
+      - パラメータバインド
+      - プランキャッシュ検索
+      - キャッシュミスの場合はプラン作成
+        - プランのメモリサイズ（tidb_plan_cache_max_plan_size）に収まっていればキャッシュを保存
+      - クエリの物理実行
+  - 嬉しいこと
+    - SQLパース処理の削減
+      - **毎回のSQL構文解析してASTに変換する処理をスキップする**
+    - SQLインジェクション防止
+      - パラメータ値を安全に評価
+    - SQLパース処理の削減
+    - 実行計画キャッシュ
+- 参考
+  - https://docs.pingcap.com/ja/tidb/stable/sql-prepared-plan-cache/
+  - https://docs.pingcap.com/ja/tidb/stable/sql-non-prepared-plan-cache/
